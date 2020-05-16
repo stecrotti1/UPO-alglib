@@ -1,0 +1,4 @@
+/home/steplinux/cmake-3.17.2-Linux-x86_64/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" "/mnt/c/Users/stecr/Documents/UPO/2° Anno 2019-2020/1° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace"
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /mnt/c/Users/stecr/Documents/UPO/2Â° Anno 2019-2020/1Â° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace/cmake-build-debug

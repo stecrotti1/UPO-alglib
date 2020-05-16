@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="alg_workspace"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/mnt/c/Users/stecr/Documents/UPO/2° Anno 2019-2020/1° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/mnt/c/Users/stecr/Documents/UPO/2°\ Anno\ 2019-2020/1°\ Semestre/Algoritmi\ 1/Laboratorio/workspaces/alg_workspace/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/mnt/c/Users/stecr/Documents/UPO/2°\ Anno\ 2019-2020/1°\ Semestre/Algoritmi\ 1/Laboratorio/workspaces/alg_workspace/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/mnt/c/Users/stecr/Documents/UPO/2°\ Anno\ 2019-2020/1°\ Semestre/Algoritmi\ 1/Laboratorio/workspaces/alg_workspace/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/mnt/c/Users/stecr/Documents/UPO/2°\ Anno\ 2019-2020/1°\ Semestre/Algoritmi\ 1/Laboratorio/workspaces/alg_workspace/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/mnt/c/Users/stecr/Documents/UPO/2° Anno 2019-2020/1° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/mnt/c/Users/stecr/Documents/UPO/2°\ Anno\ 2019-2020/1°\ Semestre/Algoritmi\ 1/Laboratorio/workspaces/alg_workspace/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/mnt/c/Users/stecr/Documents/UPO/2°\ Anno\ 2019-2020/1°\ Semestre/Algoritmi\ 1/Laboratorio/workspaces/alg_workspace/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/mnt/c/Users/stecr/Documents/UPO/2°\ Anno\ 2019-2020/1°\ Semestre/Algoritmi\ 1/Laboratorio/workspaces/alg_workspace/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/mnt/c/Users/stecr/Documents/UPO/2°\ Anno\ 2019-2020/1°\ Semestre/Algoritmi\ 1/Laboratorio/workspaces/alg_workspace/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/mnt/c/Users/stecr/Documents/UPO/2° Anno 2019-2020/1° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/mnt/c/Users/stecr/Documents/UPO/2°\ Anno\ 2019-2020/1°\ Semestre/Algoritmi\ 1/Laboratorio/workspaces/alg_workspace/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/mnt/c/Users/stecr/Documents/UPO/2°\ Anno\ 2019-2020/1°\ Semestre/Algoritmi\ 1/Laboratorio/workspaces/alg_workspace/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/mnt/c/Users/stecr/Documents/UPO/2°\ Anno\ 2019-2020/1°\ Semestre/Algoritmi\ 1/Laboratorio/workspaces/alg_workspace/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/mnt/c/Users/stecr/Documents/UPO/2°\ Anno\ 2019-2020/1°\ Semestre/Algoritmi\ 1/Laboratorio/workspaces/alg_workspace/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="alg_workspace">
+				<Option output="/mnt/c/Users/stecr/Documents/UPO/2° Anno 2019-2020/1° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace/cmake-build-debug/alg_workspace" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/mnt/c/Users/stecr/Documents/UPO/2° Anno 2019-2020/1° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/mnt/c/Users/stecr/Documents/UPO/2° Anno 2019-2020/1° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace/include"/>
+					<Add directory="/mnt/c/Users/stecr/Documents/UPO/2° Anno 2019-2020/1° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace/include/upo"/>
+					<Add directory="/mnt/c/Users/stecr/Documents/UPO/2° Anno 2019-2020/1° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace/src"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/mnt/c/Users/stecr/Documents/UPO/2°\ Anno\ 2019-2020/1°\ Semestre/Algoritmi\ 1/Laboratorio/workspaces/alg_workspace/cmake-build-debug/Makefile&quot;  VERBOSE=1 alg_workspace"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/mnt/c/Users/stecr/Documents/UPO/2°\ Anno\ 2019-2020/1°\ Semestre/Algoritmi\ 1/Laboratorio/workspaces/alg_workspace/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/mnt/c/Users/stecr/Documents/UPO/2°\ Anno\ 2019-2020/1°\ Semestre/Algoritmi\ 1/Laboratorio/workspaces/alg_workspace/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/mnt/c/Users/stecr/Documents/UPO/2°\ Anno\ 2019-2020/1°\ Semestre/Algoritmi\ 1/Laboratorio/workspaces/alg_workspace/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="alg_workspace/fast">
+				<Option output="/mnt/c/Users/stecr/Documents/UPO/2° Anno 2019-2020/1° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace/cmake-build-debug/alg_workspace" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/mnt/c/Users/stecr/Documents/UPO/2° Anno 2019-2020/1° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/mnt/c/Users/stecr/Documents/UPO/2° Anno 2019-2020/1° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace/include"/>
+					<Add directory="/mnt/c/Users/stecr/Documents/UPO/2° Anno 2019-2020/1° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace/include/upo"/>
+					<Add directory="/mnt/c/Users/stecr/Documents/UPO/2° Anno 2019-2020/1° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace/src"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/mnt/c/Users/stecr/Documents/UPO/2°\ Anno\ 2019-2020/1°\ Semestre/Algoritmi\ 1/Laboratorio/workspaces/alg_workspace/cmake-build-debug/Makefile&quot;  VERBOSE=1 alg_workspace/fast"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/mnt/c/Users/stecr/Documents/UPO/2°\ Anno\ 2019-2020/1°\ Semestre/Algoritmi\ 1/Laboratorio/workspaces/alg_workspace/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/mnt/c/Users/stecr/Documents/UPO/2°\ Anno\ 2019-2020/1°\ Semestre/Algoritmi\ 1/Laboratorio/workspaces/alg_workspace/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/mnt/c/Users/stecr/Documents/UPO/2°\ Anno\ 2019-2020/1°\ Semestre/Algoritmi\ 1/Laboratorio/workspaces/alg_workspace/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/mnt/c/Users/stecr/Documents/UPO/2° Anno 2019-2020/1° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace/apps/use_timer.c">
+			<Option target="alg_workspace"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/stecr/Documents/UPO/2° Anno 2019-2020/1° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace/include/upo/error.h">
+			<Option target="alg_workspace"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/stecr/Documents/UPO/2° Anno 2019-2020/1° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace/include/upo/hires_timer.h">
+			<Option target="alg_workspace"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/stecr/Documents/UPO/2° Anno 2019-2020/1° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace/include/upo/io.h">
+			<Option target="alg_workspace"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/stecr/Documents/UPO/2° Anno 2019-2020/1° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace/include/upo/macro.h">
+			<Option target="alg_workspace"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/stecr/Documents/UPO/2° Anno 2019-2020/1° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace/include/upo/random.h">
+			<Option target="alg_workspace"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/stecr/Documents/UPO/2° Anno 2019-2020/1° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace/include/upo/timer.h">
+			<Option target="alg_workspace"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/stecr/Documents/UPO/2° Anno 2019-2020/1° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace/include/upo/utility.h">
+			<Option target="alg_workspace"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/stecr/Documents/UPO/2° Anno 2019-2020/1° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace/src/hires_timer.c">
+			<Option target="alg_workspace"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/stecr/Documents/UPO/2° Anno 2019-2020/1° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace/src/hires_timer_private.h">
+			<Option target="alg_workspace"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/stecr/Documents/UPO/2° Anno 2019-2020/1° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace/src/io.c">
+			<Option target="alg_workspace"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/stecr/Documents/UPO/2° Anno 2019-2020/1° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace/src/random.c">
+			<Option target="alg_workspace"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/stecr/Documents/UPO/2° Anno 2019-2020/1° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace/src/timer.c">
+			<Option target="alg_workspace"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/stecr/Documents/UPO/2° Anno 2019-2020/1° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace/src/timer_private.h">
+			<Option target="alg_workspace"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/stecr/Documents/UPO/2° Anno 2019-2020/1° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace/src/utility.c">
+			<Option target="alg_workspace"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/stecr/Documents/UPO/2° Anno 2019-2020/1° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace/test/test_hires_timer.c">
+			<Option target="alg_workspace"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/stecr/Documents/UPO/2° Anno 2019-2020/1° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace/test/test_timer.c">
+			<Option target="alg_workspace"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/stecr/Documents/UPO/2° Anno 2019-2020/1° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

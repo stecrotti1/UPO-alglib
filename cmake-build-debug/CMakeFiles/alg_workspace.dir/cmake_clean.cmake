@@ -7,8 +7,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/alg_workspace.dir/src/utility.c.o"
   "CMakeFiles/alg_workspace.dir/test/test_hires_timer.c.o"
   "CMakeFiles/alg_workspace.dir/test/test_timer.c.o"
-  "alg_workspace"
   "alg_workspace.pdb"
+  "alg_workspace"
 )
 
 # Per-language clean rules from dependency scanning.

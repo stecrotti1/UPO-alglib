@@ -78,4 +78,6 @@ upo_bst_node_t *upo_bst_delete2C_impl(upo_bst_node_t *, upo_bst_comparator_t, in
 
 upo_bst_node_t *upo_bst_max_impl(upo_bst_node_t *);
 
+size_t upo_bst_size_impl(upo_bst_node_t *);
+
 #endif /* UPO_BST_PRIVATE_H */

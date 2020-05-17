@@ -24,7 +24,7 @@
 #include <stdlib.h>
 
 
-/**** EXERCISE #1 - BEGIN of FUNDAMENTAL OPERATIONS ****/
+/**** BEGIN of FUNDAMENTAL OPERATIONS ****/
 
 
 upo_bst_t upo_bst_create(upo_bst_comparator_t key_cmp)
@@ -62,6 +62,19 @@ void upo_bst_destroy(upo_bst_t tree, int destroy_data)
     {
         upo_bst_clear(tree, destroy_data);
         free(tree);
+    }
+}
+
+void upo_bst_destroy_node(upo_bst_node_t *node, int destroy_data)
+{
+    if (node != NULL)
+    {
+        if (destroy_data)
+        {
+            free(node->key);
+            free(node->value);
+        }
+        free(node);
     }
 }
 
@@ -125,9 +138,6 @@ upo_bst_node_t* upo_bst_put_impl(upo_bst_node_t* node, void* key, void* value, v
 
 void upo_bst_insert(upo_bst_t tree, void *key, void *value)
 {
-    if (tree == NULL)
-        return;
-
     tree->root = upo_bst_insert_impl(tree->root, key, value, tree->key_cmp);
 }
 
@@ -146,9 +156,6 @@ upo_bst_node_t *upo_bst_insert_impl(upo_bst_node_t *node, void *key, void *value
 
 void* upo_bst_get(const upo_bst_t tree, const void *key)
 {
-    if (tree == NULL)
-        return NULL;
-
     upo_bst_node_t* node = upo_bst_get_impl(tree->root, key, tree->key_cmp);
 
     if (node != NULL)
@@ -174,9 +181,6 @@ void *upo_bst_get_impl(upo_bst_node_t* node, const void* key, upo_bst_comparator
 
 int upo_bst_contains(const upo_bst_t tree, const void *key)
 {
-   if (tree == NULL)
-       return 0;
-
    if (upo_bst_get_impl(tree->root, key, tree->key_cmp) != NULL)
        return 1;
    else
@@ -185,10 +189,63 @@ int upo_bst_contains(const upo_bst_t tree, const void *key)
 
 void upo_bst_delete(upo_bst_t tree, const void *key, int destroy_data)
 {
-    /* TO STUDENTS:
-     *  Remove the following two lines and put here your implementation. */
-    fprintf(stderr, "To be implemented!\n");
-    abort();
+    tree->root = upo_bst_delete_impl(tree->root, key, tree->key_cmp, destroy_data);
+}
+
+upo_bst_node_t *upo_bst_delete_impl(upo_bst_node_t *node, const void *key, upo_bst_comparator_t key_cmp, int destroy_data) {
+    if (node == NULL)
+        return NULL;
+
+    if (key_cmp(key, node->key) < 0)
+        node->left = upo_bst_delete_impl(node->left, key, key_cmp, destroy_data);
+
+    else if (key_cmp(key, node->key) > 0)
+        node->right = upo_bst_delete_impl(node->right, key, key_cmp, destroy_data);
+
+    else if (node->left != NULL && node->right != NULL)
+        node = upo_bst_delete2C_impl(node, key_cmp, destroy_data);
+
+    else
+        node = upo_bst_delete1C_impl(node, destroy_data);
+
+    return node;
+}
+
+upo_bst_node_t *upo_bst_delete1C_impl(upo_bst_node_t *node, int destroy_data) {
+    upo_bst_node_t *tmp = node;
+
+    if (node->left != NULL)
+        node = node->left;
+
+    else
+        node = node->right;
+
+    upo_bst_destroy_node(node, destroy_data);
+
+    return node;
+}
+
+upo_bst_node_t *upo_bst_delete2C_impl(upo_bst_node_t *node, upo_bst_comparator_t key_cmp, int destroy_data) {
+    upo_bst_node_t* max = upo_bst_max_impl(node->left);
+
+    node->key = max->key;
+
+    node->value = max->value;
+
+    node->left = upo_bst_delete_impl(node->left, max->key, key_cmp, destroy_data);
+
+    return node;
+}
+
+upo_bst_node_t *upo_bst_max_impl(upo_bst_node_t* node) {
+    if (node == NULL)
+        return NULL;
+
+    else if (node->right != NULL)
+        return upo_bst_max_impl(node->right);
+
+    else
+        return node;
 }
 
 size_t upo_bst_size(const upo_bst_t tree)

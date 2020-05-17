@@ -70,4 +70,12 @@ upo_bst_node_t *upo_bst_put_impl(upo_bst_node_t *, void *, void *, void *, upo_b
 
 upo_bst_node_t *upo_bst_insert_impl(upo_bst_node_t *, void *, void *, upo_bst_comparator_t);
 
+upo_bst_node_t *upo_bst_delete_impl(upo_bst_node_t *, const void *, upo_bst_comparator_t, int);
+
+upo_bst_node_t *upo_bst_delete1C_impl(upo_bst_node_t *, int);
+
+upo_bst_node_t *upo_bst_delete2C_impl(upo_bst_node_t *, upo_bst_comparator_t, int);
+
+upo_bst_node_t *upo_bst_max_impl(upo_bst_node_t *);
+
 #endif /* UPO_BST_PRIVATE_H */

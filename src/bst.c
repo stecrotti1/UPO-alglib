@@ -226,7 +226,7 @@ upo_bst_node_t *upo_bst_delete1C_impl(upo_bst_node_t *node, int destroy_data) {
 }
 
 upo_bst_node_t *upo_bst_delete2C_impl(upo_bst_node_t *node, upo_bst_comparator_t key_cmp, int destroy_data) {
-    upo_bst_node_t* max = upo_bst_max_impl(node->left);
+    upo_bst_node_t* max = upo_bst_delete_max_impl(node->left);
 
     node->key = max->key;
 
@@ -237,12 +237,12 @@ upo_bst_node_t *upo_bst_delete2C_impl(upo_bst_node_t *node, upo_bst_comparator_t
     return node;
 }
 
-upo_bst_node_t *upo_bst_max_impl(upo_bst_node_t* node) {
+upo_bst_node_t *upo_bst_delete_max_impl(upo_bst_node_t* node) {
     if (node == NULL)
         return NULL;
 
     else if (node->right != NULL)
-        return upo_bst_max_impl(node->right);
+        return upo_bst_delete_max_impl(node->right);
 
     else
         return node;
@@ -262,10 +262,19 @@ size_t upo_bst_size_impl(upo_bst_node_t* node) {
 
 size_t upo_bst_height(const upo_bst_t tree)
 {
-    /* TO STUDENTS:
-     *  Remove the following two lines and put here your implementation. */
-    fprintf(stderr, "To be implemented!\n");
-    abort();
+    return upo_bst_height_impl(tree->root);
+}
+
+size_t upo_bst_height_impl(upo_bst_node_t* node) {
+    if (node == NULL || upo_bst_isleaf_impl(node))
+        return 0;
+
+    return 1 + upo_bst_height_max(upo_bst_height_impl(node->left), upo_bst_height_impl(node->right));
+}
+
+int upo_bst_isleaf_impl(upo_bst_node_t *node) {
+
+    return (node->left == NULL && node->right == NULL) ? 1 : 0;
 }
 
 void upo_bst_traverse_in_order(const upo_bst_t tree, upo_bst_visitor_t visit, void *visit_arg)

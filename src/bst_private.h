@@ -82,8 +82,10 @@ size_t upo_bst_size_impl(upo_bst_node_t *);
 
 size_t upo_bst_height_impl(upo_bst_node_t *);
 
-int upo_bst_isleaf_impl(upo_bst_node_t *);
+int upo_bst_is_leaf_impl(upo_bst_node_t *);
 
 size_t upo_bst_height_max(size_t, size_t);
+
+void upo_bst_traverse_in_order_impl(upo_bst_node_t *, upo_bst_visitor_t, void *);
 
 #endif /* UPO_BST_PRIVATE_H */

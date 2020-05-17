@@ -66,7 +66,8 @@ static void upo_bst_clear_impl(upo_bst_node_t*, int destroy_data);
 
 void *upo_bst_get_impl(upo_bst_node_t *, const void *, upo_bst_comparator_t);
 
-upo_bst_node_t* upo_bst_put_impl(upo_bst_node_t *, void *, void *, void *, upo_bst_comparator_t);
+upo_bst_node_t *upo_bst_put_impl(upo_bst_node_t *, void *, void *, void *, upo_bst_comparator_t);
 
+upo_bst_node_t *upo_bst_insert_impl(upo_bst_node_t *, void *, void *, upo_bst_comparator_t);
 
 #endif /* UPO_BST_PRIVATE_H */

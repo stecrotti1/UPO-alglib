@@ -125,10 +125,23 @@ upo_bst_node_t* upo_bst_put_impl(upo_bst_node_t* node, void* key, void* value, v
 
 void upo_bst_insert(upo_bst_t tree, void *key, void *value)
 {
-    /* TO STUDENTS:
-     *  Remove the following two lines and put here your implementation. */
-    fprintf(stderr, "To be implemented!\n");
-    abort();
+    if (tree == NULL)
+        return;
+
+    tree->root = upo_bst_insert_impl(tree->root, key, value, tree->key_cmp);
+}
+
+upo_bst_node_t *upo_bst_insert_impl(upo_bst_node_t *node, void *key, void *value, upo_bst_comparator_t key_cmp) {
+    if (node == NULL)
+        return upo_bst_node_create(key, value);
+
+    else if(key_cmp(key, node->key) < 0)
+        node->left = upo_bst_insert_impl(node->left, key, value, key_cmp);
+
+    else if(key_cmp(key, node->key) > 0)
+        node->right = upo_bst_insert_impl(node->right, key, value, key_cmp);
+
+    return node;
 }
 
 void* upo_bst_get(const upo_bst_t tree, const void *key)

@@ -42,6 +42,20 @@ upo_bst_t upo_bst_create(upo_bst_comparator_t key_cmp)
     return tree;
 }
 
+upo_bst_node_t *upo_bst_node_create(void *key,void *value) {
+    upo_bst_node_t *node = malloc(sizeof(upo_bst_node_t *));
+
+    if (node == NULL) {
+        perror("Unable to create a node");
+        abort();
+    }
+
+    node->value = value;
+    node->key = key;
+
+    return node;
+}
+
 void upo_bst_destroy(upo_bst_t tree, int destroy_data)
 {
     if (tree != NULL)
@@ -79,10 +93,34 @@ void upo_bst_clear(upo_bst_t tree, int destroy_data)
 
 void* upo_bst_put(upo_bst_t tree, void *key, void *value)
 {
-    /* TO STUDENTS:
-     *  Remove the following two lines and put here your implementation. */
-    fprintf(stderr, "To be implemented!\n");
-    abort();
+    if (tree == NULL)
+        return NULL;
+
+    void *old_value = NULL;
+
+    tree->root = upo_bst_put_impl(tree->root, key, value, old_value, tree->key_cmp);
+
+    return old_value;
+}
+
+upo_bst_node_t* upo_bst_put_impl(upo_bst_node_t* node, void* key, void* value, void* old_value, upo_bst_comparator_t key_cmp) {
+    old_value = NULL;
+
+    if (node == NULL)
+        return upo_bst_node_create(key, value);
+
+    else if(key_cmp(key, node->key) < 0)
+        node->left = upo_bst_put_impl(node->left, key, value, old_value, key_cmp);
+
+    else if(key_cmp(key, node->key) > 0)
+        node->right = upo_bst_put_impl(node->right, key, value, old_value, key_cmp);
+
+    else {
+        old_value = node->value;
+        node->value = value;
+    }
+
+    return node;
 }
 
 void upo_bst_insert(upo_bst_t tree, void *key, void *value)
@@ -124,7 +162,7 @@ void *upo_bst_get_impl(upo_bst_node_t* node, const void* key, upo_bst_comparator
 int upo_bst_contains(const upo_bst_t tree, const void *key)
 {
    if (tree == NULL)
-       return NULL;
+       return 0;
 
    if (upo_bst_get_impl(tree->root, key, tree->key_cmp) != NULL)
        return 1;

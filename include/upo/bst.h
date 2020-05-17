@@ -18,8 +18,6 @@
  *   subtree of v.
  * .
  *
- * \author Your Name
- *
  * \copyright 2015 University of Piemonte Orientale, Computer Science Institute
  *
  *  This file is part of UPOalglib.

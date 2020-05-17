@@ -29,7 +29,7 @@
 #define UPO_BST_PRIVATE_H
 
 
-#include <upo/bst.h>
+#include "../include/upo/bst.h" // TO CHANGE IN <upo/bst.h>
 
 
 /** \brief Alias for binary search tree node type. */
@@ -63,6 +63,8 @@ struct upo_bst_s
  * standard C function.
  */
 static void upo_bst_clear_impl(upo_bst_node_t*, int destroy_data);
+
+void *upo_bst_get_impl(upo_bst_node_t *, const void *, upo_bst_comparator_t);
 
 
 #endif /* UPO_BST_PRIVATE_H */

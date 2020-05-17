@@ -5,8 +5,11 @@ file(REMOVE_RECURSE
   "CMakeFiles/alg_workspace.dir/src/random.c.o"
   "CMakeFiles/alg_workspace.dir/src/timer.c.o"
   "CMakeFiles/alg_workspace.dir/src/utility.c.o"
+  "CMakeFiles/alg_workspace.dir/src/bst.c.o"
   "CMakeFiles/alg_workspace.dir/test/test_hires_timer.c.o"
   "CMakeFiles/alg_workspace.dir/test/test_timer.c.o"
+  "CMakeFiles/alg_workspace.dir/test/test_bst.c.o"
+  "CMakeFiles/alg_workspace.dir/test/test_bst_more.c.o"
   "alg_workspace.pdb"
   "alg_workspace"
 )

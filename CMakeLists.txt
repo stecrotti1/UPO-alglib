@@ -16,6 +16,7 @@ add_executable(alg_workspace
         include/upo/random.h
         include/upo/timer.h
         include/upo/utility.h
+        include/upo/bst.h
         src/hires_timer.c
         src/hires_timer_private.h
         src/io.c
@@ -23,5 +24,9 @@ add_executable(alg_workspace
         src/timer.c
         src/timer_private.h
         src/utility.c
+        src/bst.c
+        src/bst_private.h
         test/test_hires_timer.c
-        test/test_timer.c)
+        test/test_timer.c
+        test/test_bst.c
+        test/test_bst_more.c)

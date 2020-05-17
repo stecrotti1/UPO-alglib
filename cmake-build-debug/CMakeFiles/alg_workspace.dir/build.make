@@ -201,9 +201,33 @@ CMakeFiles/alg_workspace.dir/src/utility.c.o.provides: CMakeFiles/alg_workspace.
 CMakeFiles/alg_workspace.dir/src/utility.c.o.provides.build: CMakeFiles/alg_workspace.dir/src/utility.c.o
 
 
+CMakeFiles/alg_workspace.dir/src/bst.c.o: CMakeFiles/alg_workspace.dir/flags.make
+CMakeFiles/alg_workspace.dir/src/bst.c.o: ../src/bst.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/mnt/c/Users/stecr/Documents/UPO/2° Anno 2019-2020/1° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_7) "Building C object CMakeFiles/alg_workspace.dir/src/bst.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/alg_workspace.dir/src/bst.c.o   -c "/mnt/c/Users/stecr/Documents/UPO/2° Anno 2019-2020/1° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace/src/bst.c"
+
+CMakeFiles/alg_workspace.dir/src/bst.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/alg_workspace.dir/src/bst.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E "/mnt/c/Users/stecr/Documents/UPO/2° Anno 2019-2020/1° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace/src/bst.c" > CMakeFiles/alg_workspace.dir/src/bst.c.i
+
+CMakeFiles/alg_workspace.dir/src/bst.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/alg_workspace.dir/src/bst.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "/mnt/c/Users/stecr/Documents/UPO/2° Anno 2019-2020/1° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace/src/bst.c" -o CMakeFiles/alg_workspace.dir/src/bst.c.s
+
+CMakeFiles/alg_workspace.dir/src/bst.c.o.requires:
+
+.PHONY : CMakeFiles/alg_workspace.dir/src/bst.c.o.requires
+
+CMakeFiles/alg_workspace.dir/src/bst.c.o.provides: CMakeFiles/alg_workspace.dir/src/bst.c.o.requires
+	$(MAKE) -f CMakeFiles/alg_workspace.dir/build.make CMakeFiles/alg_workspace.dir/src/bst.c.o.provides.build
+.PHONY : CMakeFiles/alg_workspace.dir/src/bst.c.o.provides
+
+CMakeFiles/alg_workspace.dir/src/bst.c.o.provides.build: CMakeFiles/alg_workspace.dir/src/bst.c.o
+
+
 CMakeFiles/alg_workspace.dir/test/test_hires_timer.c.o: CMakeFiles/alg_workspace.dir/flags.make
 CMakeFiles/alg_workspace.dir/test/test_hires_timer.c.o: ../test/test_hires_timer.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/mnt/c/Users/stecr/Documents/UPO/2° Anno 2019-2020/1° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_7) "Building C object CMakeFiles/alg_workspace.dir/test/test_hires_timer.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/mnt/c/Users/stecr/Documents/UPO/2° Anno 2019-2020/1° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_8) "Building C object CMakeFiles/alg_workspace.dir/test/test_hires_timer.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/alg_workspace.dir/test/test_hires_timer.c.o   -c "/mnt/c/Users/stecr/Documents/UPO/2° Anno 2019-2020/1° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace/test/test_hires_timer.c"
 
 CMakeFiles/alg_workspace.dir/test/test_hires_timer.c.i: cmake_force
@@ -227,7 +251,7 @@ CMakeFiles/alg_workspace.dir/test/test_hires_timer.c.o.provides.build: CMakeFile
 
 CMakeFiles/alg_workspace.dir/test/test_timer.c.o: CMakeFiles/alg_workspace.dir/flags.make
 CMakeFiles/alg_workspace.dir/test/test_timer.c.o: ../test/test_timer.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/mnt/c/Users/stecr/Documents/UPO/2° Anno 2019-2020/1° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_8) "Building C object CMakeFiles/alg_workspace.dir/test/test_timer.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/mnt/c/Users/stecr/Documents/UPO/2° Anno 2019-2020/1° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_9) "Building C object CMakeFiles/alg_workspace.dir/test/test_timer.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/alg_workspace.dir/test/test_timer.c.o   -c "/mnt/c/Users/stecr/Documents/UPO/2° Anno 2019-2020/1° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace/test/test_timer.c"
 
 CMakeFiles/alg_workspace.dir/test/test_timer.c.i: cmake_force
@@ -249,6 +273,54 @@ CMakeFiles/alg_workspace.dir/test/test_timer.c.o.provides: CMakeFiles/alg_worksp
 CMakeFiles/alg_workspace.dir/test/test_timer.c.o.provides.build: CMakeFiles/alg_workspace.dir/test/test_timer.c.o
 
 
+CMakeFiles/alg_workspace.dir/test/test_bst.c.o: CMakeFiles/alg_workspace.dir/flags.make
+CMakeFiles/alg_workspace.dir/test/test_bst.c.o: ../test/test_bst.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/mnt/c/Users/stecr/Documents/UPO/2° Anno 2019-2020/1° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_10) "Building C object CMakeFiles/alg_workspace.dir/test/test_bst.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/alg_workspace.dir/test/test_bst.c.o   -c "/mnt/c/Users/stecr/Documents/UPO/2° Anno 2019-2020/1° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace/test/test_bst.c"
+
+CMakeFiles/alg_workspace.dir/test/test_bst.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/alg_workspace.dir/test/test_bst.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E "/mnt/c/Users/stecr/Documents/UPO/2° Anno 2019-2020/1° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace/test/test_bst.c" > CMakeFiles/alg_workspace.dir/test/test_bst.c.i
+
+CMakeFiles/alg_workspace.dir/test/test_bst.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/alg_workspace.dir/test/test_bst.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "/mnt/c/Users/stecr/Documents/UPO/2° Anno 2019-2020/1° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace/test/test_bst.c" -o CMakeFiles/alg_workspace.dir/test/test_bst.c.s
+
+CMakeFiles/alg_workspace.dir/test/test_bst.c.o.requires:
+
+.PHONY : CMakeFiles/alg_workspace.dir/test/test_bst.c.o.requires
+
+CMakeFiles/alg_workspace.dir/test/test_bst.c.o.provides: CMakeFiles/alg_workspace.dir/test/test_bst.c.o.requires
+	$(MAKE) -f CMakeFiles/alg_workspace.dir/build.make CMakeFiles/alg_workspace.dir/test/test_bst.c.o.provides.build
+.PHONY : CMakeFiles/alg_workspace.dir/test/test_bst.c.o.provides
+
+CMakeFiles/alg_workspace.dir/test/test_bst.c.o.provides.build: CMakeFiles/alg_workspace.dir/test/test_bst.c.o
+
+
+CMakeFiles/alg_workspace.dir/test/test_bst_more.c.o: CMakeFiles/alg_workspace.dir/flags.make
+CMakeFiles/alg_workspace.dir/test/test_bst_more.c.o: ../test/test_bst_more.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/mnt/c/Users/stecr/Documents/UPO/2° Anno 2019-2020/1° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_11) "Building C object CMakeFiles/alg_workspace.dir/test/test_bst_more.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/alg_workspace.dir/test/test_bst_more.c.o   -c "/mnt/c/Users/stecr/Documents/UPO/2° Anno 2019-2020/1° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace/test/test_bst_more.c"
+
+CMakeFiles/alg_workspace.dir/test/test_bst_more.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/alg_workspace.dir/test/test_bst_more.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E "/mnt/c/Users/stecr/Documents/UPO/2° Anno 2019-2020/1° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace/test/test_bst_more.c" > CMakeFiles/alg_workspace.dir/test/test_bst_more.c.i
+
+CMakeFiles/alg_workspace.dir/test/test_bst_more.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/alg_workspace.dir/test/test_bst_more.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "/mnt/c/Users/stecr/Documents/UPO/2° Anno 2019-2020/1° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace/test/test_bst_more.c" -o CMakeFiles/alg_workspace.dir/test/test_bst_more.c.s
+
+CMakeFiles/alg_workspace.dir/test/test_bst_more.c.o.requires:
+
+.PHONY : CMakeFiles/alg_workspace.dir/test/test_bst_more.c.o.requires
+
+CMakeFiles/alg_workspace.dir/test/test_bst_more.c.o.provides: CMakeFiles/alg_workspace.dir/test/test_bst_more.c.o.requires
+	$(MAKE) -f CMakeFiles/alg_workspace.dir/build.make CMakeFiles/alg_workspace.dir/test/test_bst_more.c.o.provides.build
+.PHONY : CMakeFiles/alg_workspace.dir/test/test_bst_more.c.o.provides
+
+CMakeFiles/alg_workspace.dir/test/test_bst_more.c.o.provides.build: CMakeFiles/alg_workspace.dir/test/test_bst_more.c.o
+
+
 # Object files for target alg_workspace
 alg_workspace_OBJECTS = \
 "CMakeFiles/alg_workspace.dir/apps/use_timer.c.o" \
@@ -257,8 +329,11 @@ alg_workspace_OBJECTS = \
 "CMakeFiles/alg_workspace.dir/src/random.c.o" \
 "CMakeFiles/alg_workspace.dir/src/timer.c.o" \
 "CMakeFiles/alg_workspace.dir/src/utility.c.o" \
+"CMakeFiles/alg_workspace.dir/src/bst.c.o" \
 "CMakeFiles/alg_workspace.dir/test/test_hires_timer.c.o" \
-"CMakeFiles/alg_workspace.dir/test/test_timer.c.o"
+"CMakeFiles/alg_workspace.dir/test/test_timer.c.o" \
+"CMakeFiles/alg_workspace.dir/test/test_bst.c.o" \
+"CMakeFiles/alg_workspace.dir/test/test_bst_more.c.o"
 
 # External object files for target alg_workspace
 alg_workspace_EXTERNAL_OBJECTS =
@@ -269,11 +344,14 @@ alg_workspace: CMakeFiles/alg_workspace.dir/src/io.c.o
 alg_workspace: CMakeFiles/alg_workspace.dir/src/random.c.o
 alg_workspace: CMakeFiles/alg_workspace.dir/src/timer.c.o
 alg_workspace: CMakeFiles/alg_workspace.dir/src/utility.c.o
+alg_workspace: CMakeFiles/alg_workspace.dir/src/bst.c.o
 alg_workspace: CMakeFiles/alg_workspace.dir/test/test_hires_timer.c.o
 alg_workspace: CMakeFiles/alg_workspace.dir/test/test_timer.c.o
+alg_workspace: CMakeFiles/alg_workspace.dir/test/test_bst.c.o
+alg_workspace: CMakeFiles/alg_workspace.dir/test/test_bst_more.c.o
 alg_workspace: CMakeFiles/alg_workspace.dir/build.make
 alg_workspace: CMakeFiles/alg_workspace.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="/mnt/c/Users/stecr/Documents/UPO/2° Anno 2019-2020/1° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_9) "Linking C executable alg_workspace"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="/mnt/c/Users/stecr/Documents/UPO/2° Anno 2019-2020/1° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_12) "Linking C executable alg_workspace"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/alg_workspace.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -287,8 +365,11 @@ CMakeFiles/alg_workspace.dir/requires: CMakeFiles/alg_workspace.dir/src/io.c.o.r
 CMakeFiles/alg_workspace.dir/requires: CMakeFiles/alg_workspace.dir/src/random.c.o.requires
 CMakeFiles/alg_workspace.dir/requires: CMakeFiles/alg_workspace.dir/src/timer.c.o.requires
 CMakeFiles/alg_workspace.dir/requires: CMakeFiles/alg_workspace.dir/src/utility.c.o.requires
+CMakeFiles/alg_workspace.dir/requires: CMakeFiles/alg_workspace.dir/src/bst.c.o.requires
 CMakeFiles/alg_workspace.dir/requires: CMakeFiles/alg_workspace.dir/test/test_hires_timer.c.o.requires
 CMakeFiles/alg_workspace.dir/requires: CMakeFiles/alg_workspace.dir/test/test_timer.c.o.requires
+CMakeFiles/alg_workspace.dir/requires: CMakeFiles/alg_workspace.dir/test/test_bst.c.o.requires
+CMakeFiles/alg_workspace.dir/requires: CMakeFiles/alg_workspace.dir/test/test_bst_more.c.o.requires
 
 .PHONY : CMakeFiles/alg_workspace.dir/requires
 

@@ -87,6 +87,9 @@
 		<Unit filename="/mnt/c/Users/stecr/Documents/UPO/2° Anno 2019-2020/1° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace/apps/use_timer.c">
 			<Option target="alg_workspace"/>
 		</Unit>
+		<Unit filename="/mnt/c/Users/stecr/Documents/UPO/2° Anno 2019-2020/1° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace/include/upo/bst.h">
+			<Option target="alg_workspace"/>
+		</Unit>
 		<Unit filename="/mnt/c/Users/stecr/Documents/UPO/2° Anno 2019-2020/1° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace/include/upo/error.h">
 			<Option target="alg_workspace"/>
 		</Unit>
@@ -108,6 +111,12 @@
 		<Unit filename="/mnt/c/Users/stecr/Documents/UPO/2° Anno 2019-2020/1° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace/include/upo/utility.h">
 			<Option target="alg_workspace"/>
 		</Unit>
+		<Unit filename="/mnt/c/Users/stecr/Documents/UPO/2° Anno 2019-2020/1° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace/src/bst.c">
+			<Option target="alg_workspace"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/stecr/Documents/UPO/2° Anno 2019-2020/1° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace/src/bst_private.h">
+			<Option target="alg_workspace"/>
+		</Unit>
 		<Unit filename="/mnt/c/Users/stecr/Documents/UPO/2° Anno 2019-2020/1° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace/src/hires_timer.c">
 			<Option target="alg_workspace"/>
 		</Unit>
@@ -127,6 +136,12 @@
 			<Option target="alg_workspace"/>
 		</Unit>
 		<Unit filename="/mnt/c/Users/stecr/Documents/UPO/2° Anno 2019-2020/1° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace/src/utility.c">
+			<Option target="alg_workspace"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/stecr/Documents/UPO/2° Anno 2019-2020/1° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace/test/test_bst.c">
+			<Option target="alg_workspace"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/stecr/Documents/UPO/2° Anno 2019-2020/1° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace/test/test_bst_more.c">
 			<Option target="alg_workspace"/>
 		</Unit>
 		<Unit filename="/mnt/c/Users/stecr/Documents/UPO/2° Anno 2019-2020/1° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace/test/test_hires_timer.c">

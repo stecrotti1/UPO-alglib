@@ -150,6 +150,33 @@ apps/use_timer.c.s:
 	$(MAKE) -f CMakeFiles/alg_workspace.dir/build.make CMakeFiles/alg_workspace.dir/apps/use_timer.c.s
 .PHONY : apps/use_timer.c.s
 
+src/bst.o: src/bst.c.o
+
+.PHONY : src/bst.o
+
+# target to build an object file
+src/bst.c.o:
+	$(MAKE) -f CMakeFiles/alg_workspace.dir/build.make CMakeFiles/alg_workspace.dir/src/bst.c.o
+.PHONY : src/bst.c.o
+
+src/bst.i: src/bst.c.i
+
+.PHONY : src/bst.i
+
+# target to preprocess a source file
+src/bst.c.i:
+	$(MAKE) -f CMakeFiles/alg_workspace.dir/build.make CMakeFiles/alg_workspace.dir/src/bst.c.i
+.PHONY : src/bst.c.i
+
+src/bst.s: src/bst.c.s
+
+.PHONY : src/bst.s
+
+# target to generate assembly for a file
+src/bst.c.s:
+	$(MAKE) -f CMakeFiles/alg_workspace.dir/build.make CMakeFiles/alg_workspace.dir/src/bst.c.s
+.PHONY : src/bst.c.s
+
 src/hires_timer.o: src/hires_timer.c.o
 
 .PHONY : src/hires_timer.o
@@ -285,6 +312,60 @@ src/utility.c.s:
 	$(MAKE) -f CMakeFiles/alg_workspace.dir/build.make CMakeFiles/alg_workspace.dir/src/utility.c.s
 .PHONY : src/utility.c.s
 
+test/test_bst.o: test/test_bst.c.o
+
+.PHONY : test/test_bst.o
+
+# target to build an object file
+test/test_bst.c.o:
+	$(MAKE) -f CMakeFiles/alg_workspace.dir/build.make CMakeFiles/alg_workspace.dir/test/test_bst.c.o
+.PHONY : test/test_bst.c.o
+
+test/test_bst.i: test/test_bst.c.i
+
+.PHONY : test/test_bst.i
+
+# target to preprocess a source file
+test/test_bst.c.i:
+	$(MAKE) -f CMakeFiles/alg_workspace.dir/build.make CMakeFiles/alg_workspace.dir/test/test_bst.c.i
+.PHONY : test/test_bst.c.i
+
+test/test_bst.s: test/test_bst.c.s
+
+.PHONY : test/test_bst.s
+
+# target to generate assembly for a file
+test/test_bst.c.s:
+	$(MAKE) -f CMakeFiles/alg_workspace.dir/build.make CMakeFiles/alg_workspace.dir/test/test_bst.c.s
+.PHONY : test/test_bst.c.s
+
+test/test_bst_more.o: test/test_bst_more.c.o
+
+.PHONY : test/test_bst_more.o
+
+# target to build an object file
+test/test_bst_more.c.o:
+	$(MAKE) -f CMakeFiles/alg_workspace.dir/build.make CMakeFiles/alg_workspace.dir/test/test_bst_more.c.o
+.PHONY : test/test_bst_more.c.o
+
+test/test_bst_more.i: test/test_bst_more.c.i
+
+.PHONY : test/test_bst_more.i
+
+# target to preprocess a source file
+test/test_bst_more.c.i:
+	$(MAKE) -f CMakeFiles/alg_workspace.dir/build.make CMakeFiles/alg_workspace.dir/test/test_bst_more.c.i
+.PHONY : test/test_bst_more.c.i
+
+test/test_bst_more.s: test/test_bst_more.c.s
+
+.PHONY : test/test_bst_more.s
+
+# target to generate assembly for a file
+test/test_bst_more.c.s:
+	$(MAKE) -f CMakeFiles/alg_workspace.dir/build.make CMakeFiles/alg_workspace.dir/test/test_bst_more.c.s
+.PHONY : test/test_bst_more.c.s
+
 test/test_hires_timer.o: test/test_hires_timer.c.o
 
 .PHONY : test/test_hires_timer.o
@@ -351,6 +432,9 @@ help:
 	@echo "... apps/use_timer.o"
 	@echo "... apps/use_timer.i"
 	@echo "... apps/use_timer.s"
+	@echo "... src/bst.o"
+	@echo "... src/bst.i"
+	@echo "... src/bst.s"
 	@echo "... src/hires_timer.o"
 	@echo "... src/hires_timer.i"
 	@echo "... src/hires_timer.s"
@@ -366,6 +450,12 @@ help:
 	@echo "... src/utility.o"
 	@echo "... src/utility.i"
 	@echo "... src/utility.s"
+	@echo "... test/test_bst.o"
+	@echo "... test/test_bst.i"
+	@echo "... test/test_bst.s"
+	@echo "... test/test_bst_more.o"
+	@echo "... test/test_bst_more.i"
+	@echo "... test/test_bst_more.s"
 	@echo "... test/test_hires_timer.o"
 	@echo "... test/test_hires_timer.i"
 	@echo "... test/test_hires_timer.s"

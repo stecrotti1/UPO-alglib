@@ -5,7 +5,7 @@
  *
  * \brief Private header for the Binary Search Tree abstract data type.
  *
- * \author Your Name
+ * \author Stefano Crotti
  *
  * \copyright 2015 University of Piemonte Orientale, Computer Science Institute
  *

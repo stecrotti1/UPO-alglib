@@ -5,6 +5,8 @@
  *
  * This file is part of UPOalglib.
  *
+ * \author Stefano Crotti
+ *
  * UPOalglib is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -275,6 +277,10 @@ size_t upo_bst_height_impl(upo_bst_node_t* node) {
 int upo_bst_is_leaf_impl(upo_bst_node_t *node) {
 
     return (node->left == NULL && node->right == NULL) ? 1 : 0;
+}
+
+size_t upo_bst_height_max(size_t a, size_t b) {
+   return (a >= b) ? a : b;
 }
 
 void upo_bst_traverse_in_order(const upo_bst_t tree, upo_bst_visitor_t visit, void *visit_arg) {

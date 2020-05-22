@@ -348,10 +348,36 @@ void upo_bst_min_impl(upo_bst_node_t *node, void *min) {
 
 void* upo_bst_max(const upo_bst_t tree)
 {
-    /* TO STUDENTS:
-     *  Remove the following two lines and put here your implementation. */
-    fprintf(stderr, "To be implemented!\n");
-    abort();
+    if (tree == NULL)
+        return NULL;
+
+    void *max = NULL;
+
+    upo_bst_max_impl(tree->root, max);
+
+    return max;
+}
+
+void upo_bst_max_impl(upo_bst_node_t *node, void *max) {
+
+    if (node->right == NULL && node->left == NULL) {
+        max = node->key;
+        return;
+    }
+
+    else {
+        if (max == NULL)
+            max = node->key;
+
+        if (node->right->key >= max)
+            max = node->right->key;
+
+        else if (node->left->key >= max)
+            max = node->left->key;
+
+        upo_bst_min_impl(node->right, max);
+        upo_bst_min_impl(node->left, max);
+    }
 }
 
 void upo_bst_delete_min(upo_bst_t tree, int destroy_data)

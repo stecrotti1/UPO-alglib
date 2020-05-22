@@ -29,7 +29,7 @@
 #define UPO_BST_PRIVATE_H
 
 
-#include "../include/upo/bst.h" // TO CHANGE IN <upo/bst.h>
+#include "../include/upo/bst.h" // TODO change in <upo/bst.h> at the end
 
 
 /** \brief Alias for binary search tree node type. */
@@ -87,5 +87,7 @@ int upo_bst_is_leaf_impl(upo_bst_node_t *);
 size_t upo_bst_height_max(size_t, size_t);
 
 void upo_bst_traverse_in_order_impl(upo_bst_node_t *, upo_bst_visitor_t, void *);
+
+void upo_bst_min_impl(upo_bst_node_t *, void *);
 
 #endif /* UPO_BST_PRIVATE_H */

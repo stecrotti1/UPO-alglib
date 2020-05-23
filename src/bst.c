@@ -1,5 +1,3 @@
-/* vim: set tabstop=4 expandtab shiftwidth=4 softtabstop=4: */
-
 /*
  * Copyright 2015 University of Piemonte Orientale, Computer Science Institute
  *
@@ -45,7 +43,7 @@ upo_bst_t upo_bst_create(upo_bst_comparator_t key_cmp)
 }
 
 upo_bst_node_t *upo_bst_node_create(void *key,void *value) {
-    upo_bst_node_t *node = malloc(sizeof(upo_bst_node_t *));
+    upo_bst_node_t *node = malloc(sizeof(upo_bst_node_t));
 
     if (node == NULL) {
         perror("Unable to create a node");
@@ -54,6 +52,8 @@ upo_bst_node_t *upo_bst_node_create(void *key,void *value) {
 
     node->value = value;
     node->key = key;
+    node->left = NULL;
+    node->right = NULL;
 
     return node;
 }
@@ -69,15 +69,13 @@ void upo_bst_destroy(upo_bst_t tree, int destroy_data)
 
 void upo_bst_destroy_node(upo_bst_node_t *node, int destroy_data)
 {
-    if (node != NULL)
+    if (destroy_data != 0)
     {
-        if (destroy_data)
-        {
-            free(node->key);
-            free(node->value);
-        }
-        free(node);
+        free(node->key);
+        free(node->value);
     }
+    free(node);
+
 }
 
 void upo_bst_clear_impl(upo_bst_node_t *node, int destroy_data)
@@ -108,9 +106,6 @@ void upo_bst_clear(upo_bst_t tree, int destroy_data)
 
 void* upo_bst_put(upo_bst_t tree, void *key, void *value)
 {
-    if (tree == NULL)
-        return NULL;
-
     void *old_value = NULL;
 
     tree->root = upo_bst_put_impl(tree->root, key, value, old_value, upo_bst_get_comparator(tree));
@@ -191,26 +186,29 @@ int upo_bst_contains(const upo_bst_t tree, const void *key)
 
 void upo_bst_delete(upo_bst_t tree, const void *key, int destroy_data)
 {
-    tree->root = upo_bst_delete_impl(tree->root, key, upo_bst_get_comparator(tree), destroy_data);
+    if (tree != NULL)
+        tree->root = upo_bst_delete_impl(tree->root, key, upo_bst_get_comparator(tree), destroy_data);
 }
 
 upo_bst_node_t *upo_bst_delete_impl(upo_bst_node_t *node, const void *key, upo_bst_comparator_t key_cmp, int destroy_data) {
     if (node == NULL)
         return NULL;
 
-    if (key_cmp(key, node->key) < 0)
-        node->left = upo_bst_delete_impl(node->left, key, key_cmp, destroy_data);
+    else {
+        if (key_cmp(key, node->key) < 0)
+            node->left = upo_bst_delete_impl(node->left, key, key_cmp, destroy_data);
 
-    else if (key_cmp(key, node->key) > 0)
-        node->right = upo_bst_delete_impl(node->right, key, key_cmp, destroy_data);
+        else if (key_cmp(key, node->key) > 0)
+            node->right = upo_bst_delete_impl(node->right, key, key_cmp, destroy_data);
 
-    else if (node->left != NULL && node->right != NULL)
-        node = upo_bst_delete2C_impl(node, key_cmp, destroy_data);
+        else if (node->left != NULL && node->right != NULL)
+            node = upo_bst_delete2C_impl(node, key_cmp, destroy_data);
 
-    else
-        node = upo_bst_delete1C_impl(node, destroy_data);
+        else
+            node = upo_bst_delete1C_impl(node, destroy_data);
 
-    return node;
+        return node;
+    }
 }
 
 upo_bst_node_t *upo_bst_delete1C_impl(upo_bst_node_t *node, int destroy_data) {
@@ -227,6 +225,7 @@ upo_bst_node_t *upo_bst_delete1C_impl(upo_bst_node_t *node, int destroy_data) {
     return node;
 }
 
+// Largest predecessor
 upo_bst_node_t *upo_bst_delete2C_impl(upo_bst_node_t *node, upo_bst_comparator_t key_cmp, int destroy_data) {
     upo_bst_node_t* max = upo_bst_delete_max_impl(node->left);
 
@@ -252,7 +251,7 @@ upo_bst_node_t *upo_bst_delete_max_impl(upo_bst_node_t* node) {
 
 size_t upo_bst_size(const upo_bst_t tree)
 {
-    return upo_bst_size_impl(tree->root);
+    return (tree == NULL) ? 0 : upo_bst_size_impl(tree->root);
 }
 
 size_t upo_bst_size_impl(upo_bst_node_t* node) {
@@ -290,7 +289,7 @@ void upo_bst_traverse_in_order(const upo_bst_t tree, upo_bst_visitor_t visit, vo
 
 void upo_bst_traverse_in_order_impl(upo_bst_node_t *node, upo_bst_visitor_t visit, void *visit_arg) {
 
-    if (node == NULL)
+    if (node != NULL)
     {
         upo_bst_traverse_in_order_impl(node->left, visit, visit_arg);
 

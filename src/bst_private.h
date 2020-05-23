@@ -76,7 +76,7 @@ upo_bst_node_t *upo_bst_delete1C_impl(upo_bst_node_t *, int);
 
 upo_bst_node_t *upo_bst_delete2C_impl(upo_bst_node_t *, upo_bst_comparator_t, int);
 
-upo_bst_node_t *upo_bst_delete_max_impl(upo_bst_node_t *);
+upo_bst_node_t *upo_bst_max_impl(upo_bst_node_t *);
 
 size_t upo_bst_size_impl(upo_bst_node_t *);
 
@@ -88,8 +88,7 @@ size_t upo_bst_height_max(size_t, size_t);
 
 void upo_bst_traverse_in_order_impl(upo_bst_node_t *, upo_bst_visitor_t, void *);
 
-void upo_bst_min_impl(upo_bst_node_t *, void *);
+upo_bst_node_t *upo_bst_min_impl(upo_bst_node_t *);
 
-void upo_bst_max_impl(upo_bst_node_t *, void *);
 
 #endif /* UPO_BST_PRIVATE_H */

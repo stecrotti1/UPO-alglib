@@ -239,6 +239,7 @@ upo_bst_node_t *upo_bst_delete2C_impl(upo_bst_node_t *node, upo_bst_comparator_t
 }
 
 upo_bst_node_t *upo_bst_max_impl(upo_bst_node_t *node) {
+
     if (node == NULL)
         return NULL;
 
@@ -355,11 +356,29 @@ void upo_bst_delete_max(upo_bst_t tree, int destroy_data) {
 
 void* upo_bst_floor(const upo_bst_t tree, const void *key)
 {
-    /* TO STUDENTS:
-     *  Remove the following two lines and put here your implementation. */
-    fprintf(stderr, "To be implemented!\n");
-    abort();
+    void *largest_key = upo_bst_floor_impl(tree->root, key, upo_bst_get_comparator(tree));
+
+    return largest_key;
 }
+
+void *upo_bst_floor_impl(upo_bst_node_t *node, const void *key, upo_bst_comparator_t key_cmp) {
+
+    if (node == NULL)
+        return NULL;
+
+
+    if (key < node->key)
+    {
+        if (key_cmp(key, node->right->key) < key_cmp(key, node->key))
+            return upo_bst_floor_impl(node->right, key, key_cmp);
+
+        else if (key_cmp(key, node->left->key) < key_cmp(key, node->key))
+            return upo_bst_floor_impl(node->left, key, key_cmp);
+    }
+    else
+        return node->key;
+}
+
 
 void* upo_bst_ceiling(const upo_bst_t tree, const void *key)
 {

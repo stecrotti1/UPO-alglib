@@ -90,5 +90,8 @@ void upo_bst_traverse_in_order_impl(upo_bst_node_t *, upo_bst_visitor_t, void *)
 
 upo_bst_node_t *upo_bst_min_impl(upo_bst_node_t *);
 
+void *upo_bst_floor_impl(upo_bst_node_t *, const void *, upo_bst_comparator_t);
+
+
 
 #endif /* UPO_BST_PRIVATE_H */

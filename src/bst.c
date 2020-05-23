@@ -363,29 +363,52 @@ void* upo_bst_floor(const upo_bst_t tree, const void *key)
 
 void *upo_bst_floor_impl(upo_bst_node_t *node, const void *key, upo_bst_comparator_t key_cmp) {
 
-    if (node == NULL)
-        return NULL;
-
-
-    if (key < node->key)
+    if (node != NULL)
     {
-        if (key_cmp(key, node->right->key) < key_cmp(key, node->key))
-            return upo_bst_floor_impl(node->right, key, key_cmp);
-
-        else if (key_cmp(key, node->left->key) < key_cmp(key, node->key))
+        if (key_cmp(key, node->key) < 0)
             return upo_bst_floor_impl(node->left, key, key_cmp);
+
+        else if (key_cmp(key, node->key) > 0) {
+
+            if (upo_bst_floor_impl(node->right, key, key_cmp) != NULL)
+                return upo_bst_floor_impl(node->right, key, key_cmp);
+
+            else
+                return node->key;
+
+        } else
+            return node->key;
     }
-    else
-        return node->key;
+
+    return NULL;
 }
 
 
 void* upo_bst_ceiling(const upo_bst_t tree, const void *key)
 {
-    /* TO STUDENTS:
-     *  Remove the following two lines and put here your implementation. */
-    fprintf(stderr, "To be implemented!\n");
-    abort();
+    void *smallest_key = upo_bst_ceiling_impl(tree->root, key, upo_bst_get_comparator(tree));
+
+    return smallest_key;
+}
+
+void *upo_bst_ceiling_impl(upo_bst_node_t *node, const void *key, upo_bst_comparator_t key_cmp) {
+
+    if (node != NULL) {
+        if (key_cmp(key, node->key) > 0) {
+            if (upo_bst_ceiling_impl(node->left, key, key_cmp) != NULL)
+                return upo_bst_ceiling_impl(node->left, key, key_cmp);
+
+            else
+                return node->key;
+        }
+
+        else if (key_cmp(key, node->key) < 0)
+            return upo_bst_ceiling_impl(node->right, key, key_cmp);
+
+        else
+            return node->key;
+    }
+    return NULL;
 }
 
 upo_bst_key_list_t upo_bst_keys_range(const upo_bst_t tree, const void *low_key, const void *high_key)

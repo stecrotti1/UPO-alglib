@@ -856,7 +856,7 @@ int main()
     fflush(stdout);
     test_min_max();
     printf("OK\n");
-    */
+*/
     printf("Test case 'delete min/max'... ");
     fflush(stdout);
     test_delete_min_max();

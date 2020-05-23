@@ -94,4 +94,6 @@ void *upo_bst_floor_impl(upo_bst_node_t *, const void *, upo_bst_comparator_t);
 
 void *upo_bst_ceiling_impl(upo_bst_node_t *, const void *, upo_bst_comparator_t);
 
+void upo_bst_keys_impl(const upo_bst_node_t *, upo_bst_comparator_t, upo_bst_key_list_t *);
+
 #endif /* UPO_BST_PRIVATE_H */

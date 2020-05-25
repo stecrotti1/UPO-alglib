@@ -29,7 +29,7 @@
 #define UPO_BST_PRIVATE_H
 
 
-#include "../include/upo/bst.h" // TODO change in <upo/bst.h> at the end
+#include <upo/bst.h>
 
 
 /** \brief Alias for binary search tree node type. */

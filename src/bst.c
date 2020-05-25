@@ -368,15 +368,15 @@ void *upo_bst_floor_impl(upo_bst_node_t *node, const void *key, upo_bst_comparat
         if (key_cmp(key, node->key) < 0)
             return upo_bst_floor_impl(node->left, key, key_cmp);
 
-        else if (key_cmp(key, node->key) > 0) {
-
+        else if (key_cmp(key, node->key) > 0)
+        {
             if (upo_bst_floor_impl(node->right, key, key_cmp) != NULL)
                 return upo_bst_floor_impl(node->right, key, key_cmp);
 
             else
                 return node->key;
-
-        } else
+        }
+        else
             return node->key;
     }
 
@@ -395,7 +395,8 @@ void *upo_bst_ceiling_impl(upo_bst_node_t *node, const void *key, upo_bst_compar
 
     if (node != NULL)
     {
-        if (key_cmp(key, node->key) < 0) {
+        if (key_cmp(key, node->key) < 0)
+        {
             if (upo_bst_ceiling_impl(node->left, key, key_cmp) != NULL)
                 return upo_bst_ceiling_impl(node->left, key, key_cmp);
 
@@ -414,18 +415,36 @@ void *upo_bst_ceiling_impl(upo_bst_node_t *node, const void *key, upo_bst_compar
 
 upo_bst_key_list_t upo_bst_keys_range(const upo_bst_t tree, const void *low_key, const void *high_key)
 {
-    /* TO STUDENTS:
-     *  Remove the following two lines and put here your implementation. */
-    fprintf(stderr, "To be implemented!\n");
-    abort();
+    if (tree != NULL)
+    {
+        upo_bst_key_list_t full_list = upo_bst_keys(tree); // TODO List is NULL!!
+        upo_bst_key_list_t list = NULL;
+
+        upo_bst_comparator_t key_cmp = upo_bst_get_comparator(tree);
+
+        while (full_list != NULL) {
+
+            if (key_cmp(low_key, full_list->key) <= 0 && key_cmp(high_key, full_list->key) >= 0) {
+                list->key = full_list->key;
+                list = list->next;
+            }
+
+            full_list = full_list->next;
+        }
+        return list;
+
+    }
+
+    return NULL;
 }
 
 upo_bst_key_list_t upo_bst_keys(const upo_bst_t tree)
 {
-    if (tree != NULL) {
-
+    if (tree != NULL)
+    {
         upo_bst_key_list_t list = NULL;
 
+        // TODO Isn't working, list is always NULL!
         upo_bst_keys_impl(tree->root, upo_bst_get_comparator(tree), &list);
 
         return list;
@@ -436,11 +455,11 @@ upo_bst_key_list_t upo_bst_keys(const upo_bst_t tree)
 
 void upo_bst_keys_impl(const upo_bst_node_t *node, upo_bst_comparator_t key_cmp, upo_bst_key_list_t *list) {
 
-    if (node != NULL) {
-
+    if (node != NULL)
+    {
         upo_bst_keys_impl(node->left, key_cmp, list);
 
-        upo_bst_key_list_node_t *lnode = malloc(sizeof(upo_bst_key_list_node_t *));
+        upo_bst_key_list_node_t *lnode = malloc(sizeof(struct upo_bst_key_list_node_s));
 
         if (lnode == NULL) {
             perror("Unable to create a node of the key list");
@@ -451,7 +470,6 @@ void upo_bst_keys_impl(const upo_bst_node_t *node, upo_bst_comparator_t key_cmp,
         *list = lnode;
 
         upo_bst_keys_impl(node->right, key_cmp, list);
-
     }
 }
 

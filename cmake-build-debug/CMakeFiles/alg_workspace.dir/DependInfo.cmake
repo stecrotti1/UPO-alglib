@@ -4,17 +4,17 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
-  "/mnt/c/Users/stecr/Documents/UPO/2° Anno 2019-2020/1° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace/apps/use_timer.c" "/mnt/c/Users/stecr/Documents/UPO/2° Anno 2019-2020/1° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace/cmake-build-debug/CMakeFiles/alg_workspace.dir/apps/use_timer.c.o"
-  "/mnt/c/Users/stecr/Documents/UPO/2° Anno 2019-2020/1° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace/src/bst.c" "/mnt/c/Users/stecr/Documents/UPO/2° Anno 2019-2020/1° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace/cmake-build-debug/CMakeFiles/alg_workspace.dir/src/bst.c.o"
-  "/mnt/c/Users/stecr/Documents/UPO/2° Anno 2019-2020/1° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace/src/hires_timer.c" "/mnt/c/Users/stecr/Documents/UPO/2° Anno 2019-2020/1° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace/cmake-build-debug/CMakeFiles/alg_workspace.dir/src/hires_timer.c.o"
-  "/mnt/c/Users/stecr/Documents/UPO/2° Anno 2019-2020/1° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace/src/io.c" "/mnt/c/Users/stecr/Documents/UPO/2° Anno 2019-2020/1° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace/cmake-build-debug/CMakeFiles/alg_workspace.dir/src/io.c.o"
-  "/mnt/c/Users/stecr/Documents/UPO/2° Anno 2019-2020/1° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace/src/random.c" "/mnt/c/Users/stecr/Documents/UPO/2° Anno 2019-2020/1° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace/cmake-build-debug/CMakeFiles/alg_workspace.dir/src/random.c.o"
-  "/mnt/c/Users/stecr/Documents/UPO/2° Anno 2019-2020/1° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace/src/timer.c" "/mnt/c/Users/stecr/Documents/UPO/2° Anno 2019-2020/1° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace/cmake-build-debug/CMakeFiles/alg_workspace.dir/src/timer.c.o"
-  "/mnt/c/Users/stecr/Documents/UPO/2° Anno 2019-2020/1° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace/src/utility.c" "/mnt/c/Users/stecr/Documents/UPO/2° Anno 2019-2020/1° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace/cmake-build-debug/CMakeFiles/alg_workspace.dir/src/utility.c.o"
-  "/mnt/c/Users/stecr/Documents/UPO/2° Anno 2019-2020/1° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace/test/test_bst.c" "/mnt/c/Users/stecr/Documents/UPO/2° Anno 2019-2020/1° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace/cmake-build-debug/CMakeFiles/alg_workspace.dir/test/test_bst.c.o"
-  "/mnt/c/Users/stecr/Documents/UPO/2° Anno 2019-2020/1° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace/test/test_bst_more.c" "/mnt/c/Users/stecr/Documents/UPO/2° Anno 2019-2020/1° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace/cmake-build-debug/CMakeFiles/alg_workspace.dir/test/test_bst_more.c.o"
-  "/mnt/c/Users/stecr/Documents/UPO/2° Anno 2019-2020/1° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace/test/test_hires_timer.c" "/mnt/c/Users/stecr/Documents/UPO/2° Anno 2019-2020/1° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace/cmake-build-debug/CMakeFiles/alg_workspace.dir/test/test_hires_timer.c.o"
-  "/mnt/c/Users/stecr/Documents/UPO/2° Anno 2019-2020/1° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace/test/test_timer.c" "/mnt/c/Users/stecr/Documents/UPO/2° Anno 2019-2020/1° Semestre/Algoritmi 1/Laboratorio/workspaces/alg_workspace/cmake-build-debug/CMakeFiles/alg_workspace.dir/test/test_timer.c.o"
+  "/home/step/CLionProjects/AlgLib/apps/use_timer.c" "/home/step/CLionProjects/AlgLib/cmake-build-debug/CMakeFiles/alg_workspace.dir/apps/use_timer.c.o"
+  "/home/step/CLionProjects/AlgLib/src/bst.c" "/home/step/CLionProjects/AlgLib/cmake-build-debug/CMakeFiles/alg_workspace.dir/src/bst.c.o"
+  "/home/step/CLionProjects/AlgLib/src/hires_timer.c" "/home/step/CLionProjects/AlgLib/cmake-build-debug/CMakeFiles/alg_workspace.dir/src/hires_timer.c.o"
+  "/home/step/CLionProjects/AlgLib/src/io.c" "/home/step/CLionProjects/AlgLib/cmake-build-debug/CMakeFiles/alg_workspace.dir/src/io.c.o"
+  "/home/step/CLionProjects/AlgLib/src/random.c" "/home/step/CLionProjects/AlgLib/cmake-build-debug/CMakeFiles/alg_workspace.dir/src/random.c.o"
+  "/home/step/CLionProjects/AlgLib/src/timer.c" "/home/step/CLionProjects/AlgLib/cmake-build-debug/CMakeFiles/alg_workspace.dir/src/timer.c.o"
+  "/home/step/CLionProjects/AlgLib/src/utility.c" "/home/step/CLionProjects/AlgLib/cmake-build-debug/CMakeFiles/alg_workspace.dir/src/utility.c.o"
+  "/home/step/CLionProjects/AlgLib/test/test_bst.c" "/home/step/CLionProjects/AlgLib/cmake-build-debug/CMakeFiles/alg_workspace.dir/test/test_bst.c.o"
+  "/home/step/CLionProjects/AlgLib/test/test_bst_more.c" "/home/step/CLionProjects/AlgLib/cmake-build-debug/CMakeFiles/alg_workspace.dir/test/test_bst_more.c.o"
+  "/home/step/CLionProjects/AlgLib/test/test_hires_timer.c" "/home/step/CLionProjects/AlgLib/cmake-build-debug/CMakeFiles/alg_workspace.dir/test/test_hires_timer.c.o"
+  "/home/step/CLionProjects/AlgLib/test/test_timer.c" "/home/step/CLionProjects/AlgLib/cmake-build-debug/CMakeFiles/alg_workspace.dir/test/test_timer.c.o"
   )
 set(CMAKE_C_COMPILER_ID "GNU")
 

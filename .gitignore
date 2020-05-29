@@ -1,0 +1,10 @@
+/src/timer.o
+/src/utility.o
+/src/random.o
+/src/io.o
+/src/hires_timer.o
+/src/bst.o
+/bin/libupoalglib_s.a
+/cmake-build-debug/
+/src/stack.o
+/test/test_timer

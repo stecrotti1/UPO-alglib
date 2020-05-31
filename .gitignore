@@ -1,10 +1,10 @@
-/bin/libupoalglib_s.a
-/src/bst.o
-/src/hires_timer.o
-/src/io.o
-/src/random.o
-/src/stack.o
 /src/timer.o
 /src/utility.o
-/test/test_timer
+/src/random.o
+/src/io.o
+/src/hires_timer.o
+/src/bst.o
+/bin/libupoalglib_s.a
 /cmake-build-debug/
+/src/stack.o
+/test/test_timer

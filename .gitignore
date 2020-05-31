@@ -8,3 +8,5 @@
 /cmake-build-debug/
 /src/stack.o
 /test/test_timer
+/test/test_sort
+CMakeLists.txt

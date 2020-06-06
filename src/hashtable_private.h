@@ -1,11 +1,9 @@
-/* vim: set tabstop=4 expandtab shiftwidth=4 softtabstop=4: */
-
 /**
  * \file src/hashtable_private.h
  *
  * \brief Private header for the Hash Tbale abstract data type.
  *
- * \author Your Name
+ * \author Stefano Crotti
  *
  * \copyright 2015 University of Piemonte Orientale, Computer Science Institute
  *

@@ -1,5 +1,3 @@
-/* vim: set tabstop=4 expandtab shiftwidth=4 softtabstop=4: */
-
 /*
  * Copyright 2015 University of Piemonte Orientale, Computer Science Institute
  *
@@ -29,7 +27,7 @@
 #include <upo/utility.h>
 
 
-/*** EXERCISE #1 - BEGIN of HASH TABLE with SEPARATE CHAINING ***/
+/*** BEGIN of HASH TABLE with SEPARATE CHAINING ***/
 
 
 upo_ht_sepchain_t upo_ht_sepchain_create(size_t m, upo_ht_hasher_t key_hash, upo_ht_comparator_t key_cmp)
@@ -116,50 +114,42 @@ void* upo_ht_sepchain_put(upo_ht_sepchain_t ht, void *key, void *value)
 {
     void *old_value = NULL;
 
-    /* TO STUDENTS:
-     *  Remove the following two lines and put here your implementation. */
-    fprintf(stderr, "To be implemented!\n");
-    abort();
 
     return old_value;
 }
 
 void upo_ht_sepchain_insert(upo_ht_sepchain_t ht, void *key, void *value)
 {
-    /* TO STUDENTS:
-     *  Remove the following two lines and put here your implementation. */
     fprintf(stderr, "To be implemented!\n");
     abort();
 }
 
 void* upo_ht_sepchain_get(const upo_ht_sepchain_t ht, const void *key)
 {
-    /* TO STUDENTS:
-     *  Remove the following two lines and put here your implementation. */
-    fprintf(stderr, "To be implemented!\n");
-    abort();
+    upo_ht_comparator_t key_cmp = upo_ht_sepchain_get_comparator(ht);
+
+    upo_ht_sepchain_list_node_t *node = ht->slots->head;
+
+    while (node != NULL && key_cmp(key, node->key) != 0)
+        node = node->next;
+
+    return (node != NULL) ? node->value : NULL;
 }
 
 int upo_ht_sepchain_contains(const upo_ht_sepchain_t ht, const void *key)
 {
-    /* TO STUDENTS:
-     *  Remove the following two lines and put here your implementation. */
     fprintf(stderr, "To be implemented!\n");
     abort();
 }
 
 void upo_ht_sepchain_delete(upo_ht_sepchain_t ht, const void *key, int destroy_data)
 {
-    /* TO STUDENTS:
-     *  Remove the following two lines and put here your implementation. */
     fprintf(stderr, "To be implemented!\n");
     abort();
 }
 
 size_t upo_ht_sepchain_size(const upo_ht_sepchain_t ht)
 {
-    /* TO STUDENTS:
-     *  Remove the following two lines and put here your implementation. */
     fprintf(stderr, "To be implemented!\n");
     abort();
 }
@@ -190,10 +180,10 @@ upo_ht_hasher_t upo_ht_sepchain_get_hasher(const upo_ht_sepchain_t ht)
 }
 
 
-/*** EXERCISE #1 - END of HASH TABLE with SEPARATE CHAINING ***/
+/*** END of HASH TABLE with SEPARATE CHAINING ***/
 
 
-/*** EXERCISE #2 - BEGIN of HASH TABLE with LINEAR PROBING ***/
+/*** BEGIN of HASH TABLE with LINEAR PROBING ***/
 
 
 upo_ht_linprob_t upo_ht_linprob_create(size_t m, upo_ht_hasher_t key_hash, upo_ht_comparator_t key_cmp)
@@ -279,8 +269,6 @@ void* upo_ht_linprob_put(upo_ht_linprob_t ht, void *key, void *value)
 {
     void *old_value = NULL;
 
-    /* TO STUDENTS:
-     *  Remove the following two lines and put here your implementation. */
     fprintf(stderr, "To be implemented!\n");
     abort();
 
@@ -289,40 +277,30 @@ void* upo_ht_linprob_put(upo_ht_linprob_t ht, void *key, void *value)
 
 void upo_ht_linprob_insert(upo_ht_linprob_t ht, void *key, void *value)
 {
-    /* TO STUDENTS:
-     *  Remove the following two lines and put here your implementation. */
     fprintf(stderr, "To be implemented!\n");
     abort();
 }
 
 void* upo_ht_linprob_get(const upo_ht_linprob_t ht, const void *key)
 {
-    /* TO STUDENTS:
-     *  Remove the following two lines and put here your implementation. */
     fprintf(stderr, "To be implemented!\n");
     abort();
 }
 
 int upo_ht_linprob_contains(const upo_ht_linprob_t ht, const void *key)
 {
-    /* TO STUDENTS:
-     *  Remove the following two lines and put here your implementation. */
     fprintf(stderr, "To be implemented!\n");
     abort();
 }
 
 void upo_ht_linprob_delete(upo_ht_linprob_t ht, const void *key, int destroy_data)
 {
-    /* TO STUDENTS:
-     *  Remove the following two lines and put here your implementation. */
     fprintf(stderr, "To be implemented!\n");
     abort();
 }
 
 size_t upo_ht_linprob_size(const upo_ht_linprob_t ht)
 {
-    /* TO STUDENTS:
-     *  Remove the following two lines and put here your implementation. */
     fprintf(stderr, "To be implemented!\n");
     abort();
 }
@@ -390,46 +368,38 @@ void upo_ht_linprob_resize(upo_ht_linprob_t ht, size_t n)
 }
 
 
-/*** EXERCISE #2 - END of HASH TABLE with LINEAR PROBING ***/
+/*** END of HASH TABLE with LINEAR PROBING ***/
 
 
-/*** EXERCISE #3 - BEGIN of HASH TABLE - EXTRA OPERATIONS ***/
+/*** BEGIN of HASH TABLE - EXTRA OPERATIONS ***/
 
 
 upo_ht_key_list_t upo_ht_sepchain_keys(const upo_ht_sepchain_t ht)
 {
-    /* TO STUDENTS:
-     *  Remove the following two lines and put here your implementation. */
     fprintf(stderr, "To be implemented!\n");
     abort();
 }
 
 void upo_ht_sepchain_traverse(const upo_ht_sepchain_t ht, upo_ht_visitor_t visit, void *visit_arg)
 {
-    /* TO STUDENTS:
-     *  Remove the following two lines and put here your implementation. */
     fprintf(stderr, "To be implemented!\n");
     abort();
 }
 
 upo_ht_key_list_t upo_ht_linprob_keys(const upo_ht_linprob_t ht)
 {
-    /* TO STUDENTS:
-     *  Remove the following two lines and put here your implementation. */
     fprintf(stderr, "To be implemented!\n");
     abort();
 }
 
 void upo_ht_linprob_traverse(const upo_ht_linprob_t ht, upo_ht_visitor_t visit, void *visit_arg)
 {
-    /* TO STUDENTS:
-     *  Remove the following two lines and put here your implementation. */
     fprintf(stderr, "To be implemented!\n");
     abort();
 }
 
 
-/*** EXERCISE #3 - END of HASH TABLE - EXTRA OPERATIONS ***/
+/*** END of HASH TABLE - EXTRA OPERATIONS ***/
 
 
 /*** BEGIN of HASH FUNCTIONS ***/

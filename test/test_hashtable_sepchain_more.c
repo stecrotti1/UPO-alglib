@@ -1,5 +1,3 @@
-/* vim: set tabstop=4 expandtab shiftwidth=4 softtabstop=4: */
-
 /*
  * Copyright 2015 University of Piemonte Orientale, Computer Science Institute
  *

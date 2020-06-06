@@ -138,8 +138,14 @@ void* upo_ht_sepchain_get(const upo_ht_sepchain_t ht, const void *key)
 
 int upo_ht_sepchain_contains(const upo_ht_sepchain_t ht, const void *key)
 {
-    fprintf(stderr, "To be implemented!\n");
-    abort();
+    upo_ht_comparator_t key_cmp = upo_ht_sepchain_get_comparator(ht);
+
+    upo_ht_sepchain_list_node_t *node = ht->slots->head;
+
+    while (node != NULL && key_cmp(node->key, key) != 0)
+        node = node->next;
+
+    return (node != NULL) ? 1 : 0;
 }
 
 void upo_ht_sepchain_delete(upo_ht_sepchain_t ht, const void *key, int destroy_data)

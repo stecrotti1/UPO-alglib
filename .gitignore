@@ -17,3 +17,4 @@ CMakeLists.txt
 /test/test_hashtable_sepchain_more
 /test/test_hires_timer
 /test/test_stack
+.idea

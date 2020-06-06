@@ -8,3 +8,7 @@
 /src/stack.o
 /src/timer.o
 /src/utility.o
+/test/test_hires_timer
+/test/test_bst
+/test/test_bst_more
+/test/test_timer

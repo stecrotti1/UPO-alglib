@@ -19,9 +19,10 @@
  * along with UPOalglib.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "bst_private.h"
 #include <stdio.h>
 #include <stdlib.h>
+
+#include "bst_private.h"
 
 
 /**** BEGIN of FUNDAMENTAL OPERATIONS ****/
@@ -151,7 +152,7 @@ upo_bst_node_t *upo_bst_insert_impl(upo_bst_node_t *node, void *key, void *value
     return node;
 }
 
-void* upo_bst_get(const upo_bst_t tree, const void *key)
+void* upo_bst_get(upo_bst_t tree, const void *key)
 {
     upo_bst_node_t* node = upo_bst_get_impl(tree->root, key, upo_bst_get_comparator(tree));
 
@@ -176,7 +177,7 @@ void *upo_bst_get_impl(upo_bst_node_t* node, const void* key, upo_bst_comparator
         return node;
 }
 
-int upo_bst_contains(const upo_bst_t tree, const void *key)
+int upo_bst_contains(upo_bst_t tree, const void *key)
 {
    if (upo_bst_get_impl(tree->root, key, upo_bst_get_comparator(tree)) != NULL)
        return 1;
@@ -250,7 +251,7 @@ upo_bst_node_t *upo_bst_max_impl(upo_bst_node_t *node) {
         return node;
 }
 
-size_t upo_bst_size(const upo_bst_t tree)
+size_t upo_bst_size(upo_bst_t tree)
 {
     return (tree == NULL) ? 0 : upo_bst_size_impl(tree->root);
 }
@@ -262,7 +263,7 @@ size_t upo_bst_size_impl(upo_bst_node_t* node) {
     return 1 + upo_bst_size_impl(node->left) + upo_bst_size_impl(node->right);
 }
 
-size_t upo_bst_height(const upo_bst_t tree)
+size_t upo_bst_height(upo_bst_t tree)
 {
     return upo_bst_height_impl(tree->root);
 }
@@ -283,7 +284,7 @@ size_t upo_bst_height_max(size_t a, size_t b) {
    return (a >= b) ? a : b;
 }
 
-void upo_bst_traverse_in_order(const upo_bst_t tree, upo_bst_visitor_t visit, void *visit_arg) {
+void upo_bst_traverse_in_order(upo_bst_t tree, upo_bst_visitor_t visit, void *visit_arg) {
 
     upo_bst_traverse_in_order_impl(tree->root, visit, visit_arg);
 }
@@ -300,7 +301,7 @@ void upo_bst_traverse_in_order_impl(upo_bst_node_t *node, upo_bst_visitor_t visi
     }
 }
 
-int upo_bst_is_empty(const upo_bst_t tree)
+int upo_bst_is_empty(upo_bst_t tree)
 {
     return (tree == NULL || tree->root == NULL) ? 1 : 0;
 }
@@ -312,7 +313,7 @@ int upo_bst_is_empty(const upo_bst_t tree)
 /**** BEGIN of EXTRA OPERATIONS ****/
 
 
-void* upo_bst_min(const upo_bst_t tree)
+void* upo_bst_min(upo_bst_t tree)
 {
     upo_bst_node_t* min = upo_bst_min_impl(tree->root);
     return min;
@@ -333,7 +334,7 @@ upo_bst_node_t *upo_bst_min_impl(upo_bst_node_t *node) {
     }
 }
 
-void* upo_bst_max(const upo_bst_t tree)
+void* upo_bst_max(upo_bst_t tree)
 {
     upo_bst_node_t *max = upo_bst_max_impl(tree->root);
     return max;

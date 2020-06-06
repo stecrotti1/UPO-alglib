@@ -476,10 +476,21 @@ void upo_bst_keys_impl(const upo_bst_node_t *node, upo_bst_comparator_t key_cmp,
 
 int upo_bst_is_bst(const upo_bst_t tree, const void *min_key, const void *max_key)
 {
-    /* TO STUDENTS:
-     *  Remove the following two lines and put here your implementation. */
-    fprintf(stderr, "To be implemented!\n");
-    abort();
+  if (upo_bst_is_empty(tree))
+      return 1;
+
+  return upo_bst_is_bst_impl(tree->root, min_key, max_key, upo_bst_get_comparator(tree));
+}
+
+int upo_bst_is_bst_impl(upo_bst_node_t *node, const void *min_key, const void *max_key, upo_bst_comparator_t key_cmp)
+{
+    if (node == NULL)
+        return 1;
+
+    if (key_cmp(node->key, max_key) < 0 || key_cmp(node->key, max_key) > 0)
+        return 0;
+
+    return upo_bst_is_bst_impl(node->left, min_key, node->key, key_cmp) && upo_bst_is_bst_impl(node->right, node->key, max_key, key_cmp);
 }
 
 

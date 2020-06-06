@@ -17,6 +17,7 @@ add_executable(alg_workspace
         include/upo/timer.h
         include/upo/utility.h
         include/upo/stack.h
+        include/upo/hashtable.h
         src/hires_timer.c
         src/hires_timer_private.h
         src/io.c
@@ -26,6 +27,12 @@ add_executable(alg_workspace
         src/utility.c
         src/stack.c
         src/stack_private.h
+        src/hashtable.c
+        src/hashtable_private.h
         test/test_hires_timer.c
         test/test_timer.c
-        test/test_stack.c)
+        test/test_stack.c
+        test/test_hashtable_linprob.c
+        test/test_hashtable_linprob_more.c
+        test/test_hashtable_sepchain.c
+        test/test_hashtable_sepchain_more.c)

@@ -160,6 +160,7 @@ void* upo_ht_sepchain_put(upo_ht_sepchain_t ht, void *key, void *value)
         node->value = value;
         node->next = ht->slots->head;
         ht->slots->head = node;
+        ht->size++;
     }
 
     else
@@ -173,21 +174,24 @@ void* upo_ht_sepchain_put(upo_ht_sepchain_t ht, void *key, void *value)
 
 void upo_ht_sepchain_insert(upo_ht_sepchain_t ht, void *key, void *value)
 {
-    upo_ht_comparator_t key_cmp = upo_ht_sepchain_get_comparator(ht);
-
-    upo_ht_sepchain_list_node_t *node = ht->slots->head;
-
-    while (node != NULL && key_cmp(key, node->key) != 0)
-        node = node->next;
-
-    if (node == NULL)
+    if (ht != NULL && ht->slots != NULL)
     {
-        node = upo_ht_sepchain_create_node();
+        upo_ht_comparator_t key_cmp = upo_ht_sepchain_get_comparator(ht);
 
-        node->key = key;
-        node->value = value;
-        node->next = ht->slots->head;
-        ht->slots->head = node;
+        upo_ht_sepchain_list_node_t *node = ht->slots->head;
+
+        while (node != NULL && key_cmp(key, node->key) != 0)
+            node = node->next;
+
+        if (node == NULL) {
+            node = upo_ht_sepchain_create_node();
+
+            node->key = key;
+            node->value = value;
+            node->next = ht->slots->head;
+            ht->slots->head = node;
+            ht->size++;
+        }
     }
 }
 
@@ -239,11 +243,12 @@ void upo_ht_sepchain_delete(upo_ht_sepchain_t ht, const void *key, int destroy_d
     }
 
     upo_ht_sepchain_destroy_node(node, destroy_data);
+    ht->size--;
 }
 
 size_t upo_ht_sepchain_size(const upo_ht_sepchain_t ht)
 {
-    return (ht == NULL) ? 0 : ht->size;
+    return (ht != NULL) ? ht->size : 0;
 }
 
 int upo_ht_sepchain_is_empty(const upo_ht_sepchain_t ht)

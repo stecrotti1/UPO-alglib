@@ -145,7 +145,7 @@ void* upo_ht_sepchain_put(upo_ht_sepchain_t ht, void *key, void *value)
         node->key = key;
         node->value = value;
         node->next = ht->slots->head;
-        ht->slots->head->next = node;
+        ht->slots->head = node;
     }
 
     else
@@ -159,8 +159,22 @@ void* upo_ht_sepchain_put(upo_ht_sepchain_t ht, void *key, void *value)
 
 void upo_ht_sepchain_insert(upo_ht_sepchain_t ht, void *key, void *value)
 {
-    fprintf(stderr, "To be implemented!\n");
-    abort();
+    upo_ht_comparator_t key_cmp = upo_ht_sepchain_get_comparator(ht);
+
+    upo_ht_sepchain_list_node_t *node = ht->slots->head;
+
+    while (node != NULL && key_cmp(key, node->key) != 0)
+        node = node->next;
+
+    if (node == NULL)
+    {
+        node = upo_ht_sepchain_create_node();
+
+        node->key = key;
+        node->value = value;
+        node->next = ht->slots->head;
+        ht->slots->head = node;
+    }
 }
 
 void* upo_ht_sepchain_get(const upo_ht_sepchain_t ht, const void *key)

@@ -85,6 +85,20 @@ upo_ht_sepchain_list_node_t *upo_ht_sepchain_create_node()
     return node;
 }
 
+void upo_ht_sepchain_destroy_node(upo_ht_sepchain_list_node_t *node, int destroy_data)
+{
+    if (node != NULL)
+    {
+        free(node);
+
+        if (destroy_data != 0)
+        {
+            free(node->key);
+            free(node->value);
+        }
+    }
+}
+
 void upo_ht_sepchain_destroy(upo_ht_sepchain_t ht, int destroy_data)
 {
     if (ht != NULL)
@@ -203,8 +217,28 @@ int upo_ht_sepchain_contains(const upo_ht_sepchain_t ht, const void *key)
 
 void upo_ht_sepchain_delete(upo_ht_sepchain_t ht, const void *key, int destroy_data)
 {
-    fprintf(stderr, "To be implemented!\n");
-    abort();
+    upo_ht_comparator_t key_cmp = upo_ht_sepchain_get_comparator(ht);
+
+    upo_ht_sepchain_list_node_t *node = ht->slots->head;
+
+    upo_ht_sepchain_list_node_t *p = NULL;
+
+    while (node != NULL && key_cmp(key, node->key) != 0)
+    {
+        p = node;
+        node = node->next;
+    }
+
+    if (node != NULL)
+    {
+        if (p == NULL)
+            ht->slots->head = node->next;
+
+        else
+            p->next = node->next;
+    }
+
+    upo_ht_sepchain_destroy_node(node, destroy_data);
 }
 
 size_t upo_ht_sepchain_size(const upo_ht_sepchain_t ht)

@@ -100,6 +100,8 @@ static void upo_ht_linprob_resize(upo_ht_linprob_t ht, size_t n);
 
 upo_ht_sepchain_list_node_t *upo_ht_sepchain_create_node();
 
+void upo_ht_sepchain_destroy_node(upo_ht_sepchain_list_node_t *, int);
+
 
 /*** END of HASH TABLE with LINEAR PROBING ***/
 

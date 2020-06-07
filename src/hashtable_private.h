@@ -98,6 +98,8 @@ struct upo_ht_linprob_s
  */
 static void upo_ht_linprob_resize(upo_ht_linprob_t ht, size_t n);
 
+upo_ht_sepchain_list_node_t *upo_ht_sepchain_create_node();
+
 
 /*** END of HASH TABLE with LINEAR PROBING ***/
 

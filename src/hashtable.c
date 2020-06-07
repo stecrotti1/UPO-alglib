@@ -68,6 +68,23 @@ upo_ht_sepchain_t upo_ht_sepchain_create(size_t m, upo_ht_hasher_t key_hash, upo
     return ht;
 }
 
+upo_ht_sepchain_list_node_t *upo_ht_sepchain_create_node()
+{
+    upo_ht_sepchain_list_node_t *node = malloc(sizeof(struct upo_ht_sepchain_list_node_s));
+
+    if (node == NULL)
+    {
+        perror("malloc");
+        abort();
+    }
+
+    node->key = NULL;
+    node->value = NULL;
+    node->next = NULL;
+
+    return node;
+}
+
 void upo_ht_sepchain_destroy(upo_ht_sepchain_t ht, int destroy_data)
 {
     if (ht != NULL)
@@ -114,6 +131,28 @@ void* upo_ht_sepchain_put(upo_ht_sepchain_t ht, void *key, void *value)
 {
     void *old_value = NULL;
 
+    upo_ht_comparator_t key_cmp = upo_ht_sepchain_get_comparator(ht);
+
+    upo_ht_sepchain_list_node_t *node = ht->slots->head;
+
+    while (node != NULL && key_cmp(node->key, key) != 0)
+        node = node->next;
+
+    if (node == NULL)
+    {
+        node = upo_ht_sepchain_create_node();
+
+        node->key = key;
+        node->value = value;
+        node->next = ht->slots->head;
+        ht->slots->head->next = node;
+    }
+
+    else
+        {
+            old_value = node->value;
+            node->value = value;
+        }
 
     return old_value;
 }

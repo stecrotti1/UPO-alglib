@@ -243,8 +243,7 @@ void upo_ht_sepchain_delete(upo_ht_sepchain_t ht, const void *key, int destroy_d
 
 size_t upo_ht_sepchain_size(const upo_ht_sepchain_t ht)
 {
-    fprintf(stderr, "To be implemented!\n");
-    abort();
+    return (ht == NULL) ? 0 : ht->size;
 }
 
 int upo_ht_sepchain_is_empty(const upo_ht_sepchain_t ht)

@@ -366,8 +366,31 @@ void* upo_ht_linprob_put(upo_ht_linprob_t ht, void *key, void *value)
 {
     void *old_value = NULL;
 
-    fprintf(stderr, "To be implemented!\n");
-    abort();
+    if (upo_ht_linprob_load_factor(ht) > 0.5)
+        upo_ht_linprob_resize(ht, upo_ht_linprob_capacity(ht));
+
+    upo_ht_comparator_t key_cmp = ht->key_cmp; // TODO Missing upo_ht_linprob_get_comparator
+
+    upo_ht_linprob_slot_t *h = ht->slots;
+
+    int found = 0;
+
+    while ((key_cmp(h->key, key) != 0 && key_cmp(h->key, NULL) != 0) || h->tombstone == 1)
+    {
+        if (h->tombstone && !found)
+        {
+            found = 1;
+            h->tombstone = 1; // TODO ?
+        }
+        h = h + 1 % upo_ht_linprob_capacity(ht); // TODO wtf?
+    }
+
+    if (key_cmp(h->key, NULL) == 0)
+        if(found)
+            h->tombstone = 1; // TODO ?
+
+    h->key = key;
+    h->value = value;
 
     return old_value;
 }

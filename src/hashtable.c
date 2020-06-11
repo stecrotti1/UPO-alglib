@@ -478,8 +478,7 @@ void upo_ht_linprob_delete(upo_ht_linprob_t ht, const void *key, int destroy_dat
 
 size_t upo_ht_linprob_size(const upo_ht_linprob_t ht)
 {
-    fprintf(stderr, "To be implemented!\n");
-    abort();
+    return (ht != NULL) ? ht->size : 0;
 }
 
 int upo_ht_linprob_is_empty(const upo_ht_linprob_t ht)

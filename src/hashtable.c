@@ -428,8 +428,16 @@ void upo_ht_linprob_insert(upo_ht_linprob_t ht, void *key, void *value)
 
 void* upo_ht_linprob_get(const upo_ht_linprob_t ht, const void *key)
 {
-    fprintf(stderr, "To be implemented!\n");
-    abort();
+    upo_ht_linprob_slot_t *h = ht->slots;
+
+    upo_ht_comparator_t key_cmp = ht->key_cmp; // TODO Missing upo_ht_linprob_get_comparator
+
+    while ((key_cmp(h->key, NULL) != 0 && key_cmp(key, h->key) != 0) || h->tombstone)
+    {
+        h = h + 1 % upo_ht_linprob_capacity(ht);
+    }
+
+    return (key_cmp(h->key, NULL) != 0) ? h->value: NULL;
 }
 
 int upo_ht_linprob_contains(const upo_ht_linprob_t ht, const void *key)

@@ -367,7 +367,7 @@ void* upo_ht_linprob_put(upo_ht_linprob_t ht, void *key, void *value)
     void *old_value = NULL;
 
     if (upo_ht_linprob_load_factor(ht) > 0.5)
-        upo_ht_linprob_resize(ht, upo_ht_linprob_capacity(ht));
+        upo_ht_linprob_resize(ht, upo_ht_linprob_capacity(ht) * 2);
 
     upo_ht_comparator_t key_cmp = ht->key_cmp; // TODO Missing upo_ht_linprob_get_comparator
 
@@ -375,7 +375,7 @@ void* upo_ht_linprob_put(upo_ht_linprob_t ht, void *key, void *value)
 
     int found = 0;
 
-    while ((key_cmp(h->key, key) != 0 && key_cmp(h->key, NULL) != 0) || h->tombstone == 1)
+    while ((key_cmp(h->key, key) != 0 && key_cmp(h->key, NULL) != 0) || h->tombstone)
     {
         if (h->tombstone && !found)
         {
@@ -397,8 +397,33 @@ void* upo_ht_linprob_put(upo_ht_linprob_t ht, void *key, void *value)
 
 void upo_ht_linprob_insert(upo_ht_linprob_t ht, void *key, void *value)
 {
-    fprintf(stderr, "To be implemented!\n");
-    abort();
+    if (upo_ht_linprob_load_factor(ht) > 0.5)
+        upo_ht_linprob_resize(ht, upo_ht_linprob_capacity(ht) * 2);
+
+    upo_ht_linprob_slot_t *h = ht->slots;
+
+    upo_ht_comparator_t key_cmp = ht->key_cmp; // TODO Missing upo_ht_linprob_get_comparator
+
+    int found = 0;
+
+    while ((key_cmp(h->key, NULL) != 0 && key_cmp(key, h->key) != 0) || h->tombstone)
+    {
+        if (h->tombstone && !found)
+        {
+            found = 1;
+            h->tombstone = 1;
+        }
+
+        h = h + 1 % upo_ht_linprob_capacity(ht);
+    }
+
+    if (key_cmp(h->key, NULL) == 0)
+        if (found)
+            h->tombstone = 1;
+
+    h->key = key;
+    h->value = value;
+    h->tombstone = 0;
 }
 
 void* upo_ht_linprob_get(const upo_ht_linprob_t ht, const void *key)

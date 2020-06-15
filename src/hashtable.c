@@ -19,12 +19,13 @@
 
 
 #include <assert.h>
-#include "hashtable_private.h"
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <upo/error.h>
 #include <upo/utility.h>
+
+#include "hashtable_private.h"
 
 
 /*** BEGIN of HASH TABLE with SEPARATE CHAINING ***/
@@ -364,112 +365,138 @@ void upo_ht_linprob_clear(upo_ht_linprob_t ht, int destroy_data)
 
 void* upo_ht_linprob_put(upo_ht_linprob_t ht, void *key, void *value)
 {
+    size_t h = ht->key_hash(key, upo_ht_linprob_capacity(ht));
+    size_t tombstone = 0;
+
+    upo_ht_comparator_t key_cmp = ht->key_cmp;
+
+    upo_ht_linprob_slot_t n = ht->slots[h];
+
     void *old_value = NULL;
 
-    if (upo_ht_linprob_load_factor(ht) > 0.5)
+    if (upo_ht_linprob_load_factor(ht) >= 0.5)
         upo_ht_linprob_resize(ht, upo_ht_linprob_capacity(ht) * 2);
-
-    upo_ht_comparator_t key_cmp = ht->key_cmp; // TODO Missing upo_ht_linprob_get_comparator
-
-    upo_ht_linprob_slot_t *h = ht->slots;
 
     int found = 0;
 
-    while ((key_cmp(h->key, key) != 0 && key_cmp(h->key, NULL) != 0) || h->tombstone)
+    while ((key_cmp(n.key, NULL) != 0 && key_cmp(key, n.key) != 0) || n.tombstone)
     {
-        if (h->tombstone && !found)
+        if (n.tombstone && !found)
         {
             found = 1;
-            h->tombstone = 1; // TODO ?
+            tombstone = h;
         }
-        h = h + 1 % upo_ht_linprob_capacity(ht); // TODO wtf?
+
+        h = (h + 1) % upo_ht_linprob_capacity(ht);
     }
 
-    if (key_cmp(h->key, NULL) == 0)
-        if(found)
-            h->tombstone = 1; // TODO ?
+    if (key_cmp(n.key, NULL) == 0)
+    {
+        if (found)
+            h = tombstone;
 
-    h->key = key;
-    h->value = value;
+        n.key = key;
+        n.value = value;
+        n.tombstone = 0;
+    }
+
+    else
+        {
+        old_value = n.value;
+        n.value = value;
+        }
 
     return old_value;
 }
 
 void upo_ht_linprob_insert(upo_ht_linprob_t ht, void *key, void *value)
 {
-    if (upo_ht_linprob_load_factor(ht) > 0.5)
-        upo_ht_linprob_resize(ht, upo_ht_linprob_capacity(ht) * 2);
+    if (ht != NULL && ht->slots != NULL) {
 
-    upo_ht_linprob_slot_t *h = ht->slots;
+        if (upo_ht_linprob_load_factor(ht) >= 0.5)
+            upo_ht_linprob_resize(ht, upo_ht_linprob_capacity(ht) * 2);
 
-    upo_ht_comparator_t key_cmp = ht->key_cmp; // TODO Missing upo_ht_linprob_get_comparator
+        size_t tomb = 0;
+        size_t h = ht->key_hash(key, upo_ht_linprob_capacity(ht));
 
-    int found = 0;
+        upo_ht_linprob_slot_t node = ht->slots[h];
 
-    while ((key_cmp(h->key, NULL) != 0 && key_cmp(key, h->key) != 0) || h->tombstone)
-    {
-        if (h->tombstone && !found)
+        upo_ht_comparator_t key_cmp = ht->key_cmp; // TODO Missing upo_ht_linprob_get_comparator
+
+        int found = 0;
+
+        while ((key_cmp(node.key, NULL) != 0 && key_cmp(key, node.key) != 0) || node.tombstone)
         {
-            found = 1;
-            h->tombstone = 1;
+            if (node.tombstone && !found)
+            {
+                tomb = h;
+                found = 1;
+            }
+
+            h = (h + 1) % upo_ht_linprob_capacity(ht);
         }
 
-        h = h + 1 % upo_ht_linprob_capacity(ht);
+        if (key_cmp(node.key, NULL) == 0)
+            if (found)
+                h = tomb;
+
+        node.key = key;
+        node.value = value;
+        node.tombstone = 0;
+        ht->size++;
     }
-
-    if (key_cmp(h->key, NULL) == 0)
-        if (found)
-            h->tombstone = 1;
-
-    h->key = key;
-    h->value = value;
-    h->tombstone = 0;
 }
 
 void* upo_ht_linprob_get(const upo_ht_linprob_t ht, const void *key)
 {
-    upo_ht_linprob_slot_t *h = ht->slots;
+    size_t h = ht->key_hash(key, upo_ht_linprob_capacity(ht));
 
-    upo_ht_comparator_t key_cmp = ht->key_cmp; // TODO Missing upo_ht_linprob_get_comparator
+    upo_ht_comparator_t key_cmp = ht->key_cmp;
 
-    while ((key_cmp(h->key, NULL) != 0 && key_cmp(key, h->key) != 0) || h->tombstone)
-    {
-        h = h + 1 % upo_ht_linprob_capacity(ht);
-    }
+    upo_ht_linprob_slot_t n = ht->slots[h];
 
-    return (key_cmp(h->key, NULL) != 0) ? h->value: NULL;
+    while ((key_cmp(n.key, NULL) != 0 && key_cmp(key, n.key) != 0) || n.tombstone)
+        h = (h + 1) % upo_ht_linprob_capacity(ht);
+
+    return (key_cmp(n.key, NULL) != 0) ? n.value : NULL;
 }
 
 int upo_ht_linprob_contains(const upo_ht_linprob_t ht, const void *key)
 {
-    upo_ht_linprob_slot_t *h = ht->slots;
+    size_t h = ht->key_hash(key, upo_ht_linprob_capacity(ht));
 
-    upo_ht_comparator_t key_cmp = ht->key_cmp; // TODO Missing upo_ht_linprob_get_comparator
+    upo_ht_comparator_t key_cmp = ht->key_cmp;
 
-    while ((key_cmp(h->key, NULL) != 0 && key_cmp(key, h->key) != 0) || h->tombstone)
-    {
-        h = h + 1 % upo_ht_linprob_capacity(ht);
-    }
+    upo_ht_linprob_slot_t n = ht->slots[h];
 
-    return (key_cmp(h->key, NULL) != 0) ? 1: 0;
+    while ((key_cmp(n.key, NULL) != 0 && key_cmp(key, n.key) != 0) || n.tombstone)
+        h = (h + 1) % upo_ht_linprob_capacity(ht);
+
+    return (key_cmp(n.key, NULL) != 0) ? 1 : 0;
 }
 
 void upo_ht_linprob_delete(upo_ht_linprob_t ht, const void *key, int destroy_data)
 {
-    upo_ht_linprob_slot_t *h = ht->slots;
+    size_t h = ht->key_hash(key, upo_ht_linprob_capacity(ht));
+
+    upo_ht_linprob_slot_t node = ht->slots[h];
 
     upo_ht_comparator_t key_cmp = ht->key_cmp; // TODO Missing upo_ht_linprob_get_comparator
 
-    while ((key_cmp(h->key, NULL) != 0 && key_cmp(key, h->key) != 0) || h->tombstone)
+    while ((key_cmp(node.key, NULL) != 0 && key_cmp(key, node.key) != 0) || node.tombstone)
     {
-        h = h + 1 % upo_ht_linprob_capacity(ht);
+        h = (h + 1) % upo_ht_linprob_capacity(ht);
     }
 
-    if (key_cmp(h->key, NULL) != 0)
+    if (key_cmp(node.key, NULL) != 0)
     {
-        h->key = NULL;
-        h->value = NULL;
-        h->tombstone = 1;
+        if (destroy_data != 0)
+        {
+            free(node.key);
+            free(node.value);
+        }
+        node.tombstone = 1;
+        ht->size--;
 
         if (upo_ht_linprob_load_factor(ht) <= 0.125)
             upo_ht_linprob_resize(ht, upo_ht_linprob_capacity(ht) / 2);

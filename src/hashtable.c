@@ -377,11 +377,11 @@ void* upo_ht_linprob_put(upo_ht_linprob_t ht, void *key, void *value)
 
         upo_ht_linprob_slot_t n = ht->slots[h];
 
-        upo_ht_comparator_t key_cmp = ht->key_cmp;
+        upo_ht_comparator_t key_cmp = upo_ht_linprob_get_comparator(ht);
 
         int found = 0;
 
-        while ((n.key != NULL && key_cmp(key, n.key) != 0) || n.tombstone) // TODO assert failure here!
+        while ((n.key != NULL && key_cmp(key, n.key) != 0) || n.tombstone)
         {
             if (n.tombstone && !found)
             {
@@ -424,11 +424,11 @@ void upo_ht_linprob_insert(upo_ht_linprob_t ht, void *key, void *value)
 
         upo_ht_linprob_slot_t n = ht->slots[h];
 
-        upo_ht_comparator_t key_cmp = ht->key_cmp; // TODO Missing upo_ht_linprob_get_comparator
+        upo_ht_comparator_t key_cmp = upo_ht_linprob_get_comparator(ht);
 
         int found = 0;
 
-        while ((n.key != NULL && key_cmp(key, n.key) != 0) || n.tombstone) // TODO assert failure
+        while ((n.key != NULL && key_cmp(key, n.key) != 0) || n.tombstone)
         {
             if (n.tombstone && !found)
             {
@@ -454,7 +454,7 @@ void* upo_ht_linprob_get(const upo_ht_linprob_t ht, const void *key)
 {
     size_t h = ht->key_hash(key, upo_ht_linprob_capacity(ht));
 
-    upo_ht_comparator_t key_cmp = ht->key_cmp;
+    upo_ht_comparator_t key_cmp = upo_ht_linprob_get_comparator(ht);
 
     upo_ht_linprob_slot_t n = ht->slots[h];
 
@@ -468,7 +468,7 @@ int upo_ht_linprob_contains(const upo_ht_linprob_t ht, const void *key)
 {
     size_t h = ht->key_hash(key, upo_ht_linprob_capacity(ht));
 
-    upo_ht_comparator_t key_cmp = ht->key_cmp;
+    upo_ht_comparator_t key_cmp = upo_ht_linprob_get_comparator(ht);
 
     upo_ht_linprob_slot_t n = ht->slots[h];
 
@@ -484,7 +484,7 @@ void upo_ht_linprob_delete(upo_ht_linprob_t ht, const void *key, int destroy_dat
 
     upo_ht_linprob_slot_t n = ht->slots[h];
 
-    upo_ht_comparator_t key_cmp = ht->key_cmp; // TODO Missing upo_ht_linprob_get_comparator
+    upo_ht_comparator_t key_cmp = upo_ht_linprob_get_comparator(ht);
 
     while ((n.key != NULL && key_cmp(key, n.key) != 0) || n.tombstone)
     {
@@ -519,6 +519,11 @@ int upo_ht_linprob_is_empty(const upo_ht_linprob_t ht)
 size_t upo_ht_linprob_capacity(const upo_ht_linprob_t ht)
 {
     return (ht != NULL) ? ht->capacity : 0;
+}
+
+upo_ht_comparator_t upo_ht_linprob_get_comparator(const upo_ht_linprob_t ht)
+{
+    return ht->key_cmp;
 }
 
 double upo_ht_linprob_load_factor(const upo_ht_linprob_t ht)

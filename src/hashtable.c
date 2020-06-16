@@ -643,14 +643,47 @@ void upo_ht_sepchain_traverse(const upo_ht_sepchain_t ht, upo_ht_visitor_t visit
 
 upo_ht_key_list_t upo_ht_linprob_keys(const upo_ht_linprob_t ht)
 {
-    fprintf(stderr, "To be implemented!\n");
-    abort();
+    upo_ht_key_list_t head = NULL;
+
+    size_t i = 0;
+
+    if (!upo_ht_linprob_is_empty(ht))
+    {
+        for (i = 0; i < upo_ht_linprob_size(ht); i++)
+        {
+            upo_ht_linprob_slot_t node = ht->slots[i];
+
+            upo_ht_key_list_node_t  *n = (upo_ht_key_list_node_t *)malloc(sizeof(upo_ht_key_list_node_t));
+
+            if (n == NULL)
+            {
+                perror("malloc");
+                abort();
+            }
+
+            n->key = node.key;
+            n->next = head;
+            head = n;
+        }
+    }
+
+    return head;
 }
 
 void upo_ht_linprob_traverse(const upo_ht_linprob_t ht, upo_ht_visitor_t visit, void *visit_arg)
 {
-    fprintf(stderr, "To be implemented!\n");
-    abort();
+    size_t i = 0;
+
+    if (!upo_ht_linprob_is_empty(ht) && visit != NULL)
+    {
+        for (i = 0; i < upo_ht_linprob_size(ht); i++)
+        {
+            upo_ht_linprob_slot_t n = ht->slots[i];
+
+            if (n.key != NULL)
+                visit(n.key, n.value, visit_arg);
+        }
+    }
 }
 
 

@@ -373,6 +373,7 @@ void test_traverse()
 
 int main()
 {
+
     printf("Test case 'keys... ");
     fflush(stdout);
     test_keys();

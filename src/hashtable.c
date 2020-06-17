@@ -645,25 +645,26 @@ upo_ht_key_list_t upo_ht_linprob_keys(const upo_ht_linprob_t ht)
 {
     upo_ht_key_list_t head = NULL;
 
-    size_t i = 0;
+    size_t i;
 
     if (!upo_ht_linprob_is_empty(ht))
     {
         for (i = 0; i < upo_ht_linprob_size(ht); i++)
         {
-            upo_ht_linprob_slot_t node = ht->slots[i];
+            upo_ht_linprob_slot_t h = ht->slots[i];
 
-            upo_ht_key_list_node_t  *n = (upo_ht_key_list_node_t *)malloc(sizeof(upo_ht_key_list_node_t));
+            upo_ht_key_list_node_t *node = (upo_ht_key_list_node_t *)malloc(sizeof(upo_ht_key_list_node_t));
 
-            if (n == NULL)
+            if (node == NULL)
             {
                 perror("malloc");
                 abort();
             }
 
-            n->key = node.key;
-            n->next = head;
-            head = n;
+            node->key = h.key;
+            node->next = head;
+            head = node;
+            node = node->next;
         }
     }
 
@@ -672,16 +673,15 @@ upo_ht_key_list_t upo_ht_linprob_keys(const upo_ht_linprob_t ht)
 
 void upo_ht_linprob_traverse(const upo_ht_linprob_t ht, upo_ht_visitor_t visit, void *visit_arg)
 {
-    size_t i = 0;
+    size_t i;
 
-    if (!upo_ht_linprob_is_empty(ht) && visit != NULL)
+    if (!upo_ht_linprob_is_empty(ht)  && visit != NULL)
     {
         for (i = 0; i < upo_ht_linprob_size(ht); i++)
         {
-            upo_ht_linprob_slot_t n = ht->slots[i];
+            upo_ht_linprob_slot_t node = ht->slots[i];
 
-            if (n.key != NULL)
-                visit(n.key, n.value, visit_arg);
+            visit(node.key, node.value, visit_arg);
         }
     }
 }

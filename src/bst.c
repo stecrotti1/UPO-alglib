@@ -313,7 +313,7 @@ int upo_bst_is_empty(upo_bst_t tree)
 /**** BEGIN of EXTRA OPERATIONS ****/
 
 
-void* upo_bst_min(upo_bst_t tree)
+void* upo_bst_min(upo_bst_t tree) // TODO doesn't work
 {
     upo_bst_node_t* min = upo_bst_min_impl(tree->root);
     return min;
@@ -334,7 +334,7 @@ upo_bst_node_t *upo_bst_min_impl(upo_bst_node_t *node) {
     }
 }
 
-void* upo_bst_max(upo_bst_t tree)
+void* upo_bst_max(upo_bst_t tree) // TODO doesn't work
 {
     upo_bst_node_t *max = upo_bst_max_impl(tree->root);
     return max;
@@ -474,7 +474,7 @@ void upo_bst_keys_impl(const upo_bst_node_t *node, upo_bst_comparator_t key_cmp,
     }
 }
 
-int upo_bst_is_bst(const upo_bst_t tree, const void *min_key, const void *max_key)
+int upo_bst_is_bst(const upo_bst_t tree, const void *min_key, const void *max_key) // TODO doesn't work
 {
   if (upo_bst_is_empty(tree))
       return 1;

@@ -17,19 +17,18 @@
  * along with UPOalglib.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "stack_private.h"
 #include <stdlib.h>
+
 #include <upo/error.h>
+#include "stack_private.h"
 
 
 upo_stack_t upo_stack_create()
 {
     upo_stack_t stack = malloc(sizeof(struct upo_stack_s));
+
     if (stack == NULL)
-    {
-        fprintf(stderr, "Unable to create a stack!\n");
-        abort();
-    }
+        upo_throw_sys_error("Unable to create a stack!\n");
 
     stack->top = NULL;
     stack->size = 0;
@@ -51,11 +50,10 @@ void upo_stack_push(upo_stack_t stack, void *data)
     if (stack != NULL)
     {
         upo_stack_node_t *node = malloc(sizeof(upo_stack_node_t));
+
         if (node == NULL)
-        {
-            perror("Unable to create a stack node.\n");
-            abort();
-        }
+            upo_throw_sys_error("Unable to create a stack node.\n");
+
         node->data = data;
         node->next = stack->top;
         stack->top = node;

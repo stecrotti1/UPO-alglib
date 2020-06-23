@@ -1,5 +1,3 @@
-/* vim: set tabstop=4 expandtab shiftwidth=4 softtabstop=4: */
-
 /**
  * \file upo/bst.h
  *
@@ -167,7 +165,7 @@ upo_bst_comparator_t upo_bst_get_comparator(const upo_bst_t tree);
  *
  * Worst-case complexity: linear in the number `n` of elements, `O(n)`.
  */
-void* upo_bst_get(upo_bst_t tree, const void *key);
+void* upo_bst_get(const upo_bst_t tree, const void *key);
 
 /**
  * \brief Remove the value identified by the provided key in the given
@@ -197,7 +195,7 @@ void upo_bst_delete(upo_bst_t tree, const void *key, int destroy_data);
  *
  * Worst-case complexity: linear in the number `n` of elements, `O(n)`.
  */
-int upo_bst_contains(upo_bst_t tree, const void *key);
+int upo_bst_contains(const upo_bst_t tree, const void *key);
 
 /**
  * \brief Inserts the given value identified by the provided key in the given
@@ -221,7 +219,7 @@ void upo_bst_insert(upo_bst_t tree, void *key, void *value);
  *
  * Worst-case complexity: linear in the number `n` of elements, `O(n)`.
  */
-size_t upo_bst_size(upo_bst_t tree);
+size_t upo_bst_size(const upo_bst_t tree);
 
 /**
  * \brief Tells if the given binary search tree is empty.
@@ -233,7 +231,7 @@ size_t upo_bst_size(upo_bst_t tree);
  *
  * Worst-case complexity: constant, `O(1)`.
  */
-int upo_bst_is_empty(upo_bst_t tree);
+int upo_bst_is_empty(const upo_bst_t tree);
 
 /**
  * \brief Returns the height of the given binary search tree.
@@ -243,7 +241,7 @@ int upo_bst_is_empty(upo_bst_t tree);
  *
  * Worst-case complexity: linear in the number `n` of elements, `O(n)`.
  */
-size_t upo_bst_height(upo_bst_t tree);
+size_t upo_bst_height(const upo_bst_t tree);
 
 /**
  * \brief Performs a depth-first in-order traversal of the tree.
@@ -261,7 +259,7 @@ size_t upo_bst_height(upo_bst_t tree);
  *
  * Worst-case complexity: linear in the number `n` of elements, `O(n)`.
  */
-void upo_bst_traverse_in_order(upo_bst_t tree, upo_bst_visitor_t visit, void *visit_arg);
+void upo_bst_traverse_in_order(const upo_bst_t tree, upo_bst_visitor_t visit, void *visit_arg);
 
 /**
  * \brief Returns the smallest key in the given binary search tree.

@@ -74,10 +74,7 @@ upo_ht_sepchain_list_node_t *upo_ht_sepchain_create_node()
     upo_ht_sepchain_list_node_t *node = malloc(sizeof(struct upo_ht_sepchain_list_node_s));
 
     if (node == NULL)
-    {
-        perror("malloc");
-        abort();
-    }
+        upo_throw_sys_error("Unable to allocate memory for a single node for Hast Table with Separate Chaining");
 
     node->key = NULL;
     node->value = NULL;
@@ -342,6 +339,19 @@ void upo_ht_linprob_destroy(upo_ht_linprob_t ht, int destroy_data)
     }
 }
 
+void upo_ht_linprob_destroy_slot(upo_ht_linprob_slot_t slot, int destroy_data)
+{
+    if (destroy_data)
+    {
+        free(slot.key);
+        free(slot.value);
+    }
+
+    slot.key = NULL;
+    slot.value = NULL;
+    slot.tombstone = 1;
+}
+
 void upo_ht_linprob_clear(upo_ht_linprob_t ht, int destroy_data)
 {
     if (ht != NULL && ht->slots != NULL)
@@ -376,40 +386,42 @@ void* upo_ht_linprob_put(upo_ht_linprob_t ht, void *key, void *value)
         if (upo_ht_linprob_load_factor(ht) >= 0.5)
             upo_ht_linprob_resize(ht, upo_ht_linprob_capacity(ht) * 2);
 
-        size_t h = ht->key_hash(key, upo_ht_linprob_capacity(ht));
-        size_t tombstone = 0;
+        upo_ht_hasher_t key_hash = upo_ht_linprob_get_hasher(ht);
 
-        upo_ht_linprob_slot_t n = ht->slots[h];
+        size_t h = key_hash(key, upo_ht_linprob_capacity(ht));
+        size_t tomb = 0;
 
         upo_ht_comparator_t key_cmp = upo_ht_linprob_get_comparator(ht);
 
+        upo_ht_linprob_slot_t slot = ht->slots[h];
+
         int found = 0;
 
-        while ((n.key != NULL && key_cmp(key, n.key) != 0) || n.tombstone)
+        while ((slot.key != NULL && key_cmp(key, slot.key) != 0) || slot.tombstone)
         {
-            if (n.tombstone && !found)
+            if (slot.tombstone && !found)
             {
                 found = 1;
-                tombstone = h;
+                tomb = h;
             }
 
             h = (h + 1) % upo_ht_linprob_capacity(ht);
         }
 
-        if (n.key == NULL)
+        if (slot.key == NULL)
         {
             if (found)
-                h = tombstone;
+                h = tomb;
 
-            n.key = key;
-            n.value = value;
-            n.tombstone = 0;
+            slot.key = key;
+            slot.value = value;
+            slot.tombstone = 0;
         }
 
         else
         {
-            old_value = n.value;
-            n.value = value;
+            old_value = slot.value;
+            slot.value = value;
         }
     }
 
@@ -418,92 +430,99 @@ void* upo_ht_linprob_put(upo_ht_linprob_t ht, void *key, void *value)
 
 void upo_ht_linprob_insert(upo_ht_linprob_t ht, void *key, void *value)
 {
-    if (ht != NULL && ht->slots != NULL) {
-
+    if (ht != NULL && ht->slots != NULL)
+    {
         if (upo_ht_linprob_load_factor(ht) >= 0.5)
             upo_ht_linprob_resize(ht, upo_ht_linprob_capacity(ht) * 2);
 
-        size_t tomb = 0;
-        size_t h = ht->key_hash(key, upo_ht_linprob_capacity(ht));
-
-        upo_ht_linprob_slot_t n = ht->slots[h];
+        upo_ht_hasher_t key_hash = upo_ht_linprob_get_hasher(ht);
 
         upo_ht_comparator_t key_cmp = upo_ht_linprob_get_comparator(ht);
 
+        size_t h = key_hash(key, upo_ht_linprob_capacity(ht));
+        size_t tomb = 0;
+
+        upo_ht_linprob_slot_t slot = ht->slots[h];
+
         int found = 0;
 
-        while ((n.key != NULL && key_cmp(key, n.key) != 0) || n.tombstone)
-        {
-            if (n.tombstone && !found)
-            {
-                tomb = h;
+        while ((slot.key != NULL && key_cmp(key, slot.key) != 0) || slot.tombstone) {
+            if (slot.tombstone && !found) {
                 found = 1;
+                tomb = h;
             }
 
             h = (h + 1) % upo_ht_linprob_capacity(ht);
         }
 
-        if (n.key == NULL)
+        if (slot.key == NULL) {
             if (found)
                 h = tomb;
 
-        n.key = key;
-        n.value = value;
-        n.tombstone = 0;
-        ht->size++;
+            slot.key = key;
+            slot.value = value;
+            slot.tombstone = 0;
+        }
     }
 }
 
 void* upo_ht_linprob_get(const upo_ht_linprob_t ht, const void *key)
 {
-    size_t h = ht->key_hash(key, upo_ht_linprob_capacity(ht));
-
-    upo_ht_linprob_slot_t n = ht->slots[h];
+    upo_ht_hasher_t key_hash = upo_ht_linprob_get_hasher(ht);
 
     upo_ht_comparator_t key_cmp = upo_ht_linprob_get_comparator(ht);
 
-    while ((n.key != NULL && key_cmp(key, n.key) != 0) || n.tombstone)
+    size_t h = key_hash(key, upo_ht_linprob_capacity(ht));
+
+    upo_ht_linprob_slot_t slot = ht->slots[h];
+
+    while ((slot.key != NULL && key_cmp(key, slot.key) != 0) || slot.tombstone)
         h = (h + 1) % upo_ht_linprob_capacity(ht);
 
-    return (n.key != NULL) ? n.value : NULL;
+    return (slot.key != NULL) ? slot.value : NULL;
 }
 
 int upo_ht_linprob_contains(const upo_ht_linprob_t ht, const void *key)
 {
-    size_t h = ht->key_hash(key, upo_ht_linprob_capacity(ht));
+    if (!upo_ht_linprob_is_empty(ht))
+    {
+        upo_ht_hasher_t key_hash = upo_ht_linprob_get_hasher(ht);
 
-    upo_ht_comparator_t key_cmp = upo_ht_linprob_get_comparator(ht);
+        upo_ht_comparator_t key_cmp = upo_ht_linprob_get_comparator(ht);
 
-    upo_ht_linprob_slot_t n = ht->slots[h];
+        size_t h = key_hash(key, upo_ht_linprob_capacity(ht));
 
-    while ((n.key != NULL && key_cmp(key, n.key) != 0) || n.tombstone)
-        h = (h + 1) % upo_ht_linprob_capacity(ht);
+        upo_ht_linprob_slot_t slot = ht->slots[h];
 
-    return (n.key != NULL) ? 1 : 0;
+        while ((slot.key != NULL && key_cmp(key, slot.key) != 0) || slot.tombstone)
+            h = (h + 1) % upo_ht_linprob_capacity(ht);
+
+        return (slot.key != NULL) ? 1 : 0;
+    }
+
+    return 0;
 }
 
 void upo_ht_linprob_delete(upo_ht_linprob_t ht, const void *key, int destroy_data)
 {
-    size_t h = ht->key_hash(key, upo_ht_linprob_capacity(ht));
-
-    upo_ht_linprob_slot_t n = ht->slots[h];
-
-    upo_ht_comparator_t key_cmp = upo_ht_linprob_get_comparator(ht);
-
-    while ((n.key != NULL && key_cmp(key, n.key) != 0) || n.tombstone)
+    if (ht != NULL && ht->slots != NULL)
     {
-        h = (h + 1) % upo_ht_linprob_capacity(ht);
-    }
+        upo_ht_hasher_t key_hash = upo_ht_linprob_get_hasher(ht);
 
-    if (n.key != NULL)
-    {
-        if (destroy_data != 0)
+        upo_ht_comparator_t key_cmp = upo_ht_linprob_get_comparator(ht);
+
+        size_t h = key_hash(key, upo_ht_linprob_capacity(ht));
+
+        upo_ht_linprob_slot_t slot = ht->slots[h];
+
+        while ((slot.key != NULL && key_cmp(key, slot.key) != 0) || slot.tombstone)
+            h = (h + 1) % upo_ht_linprob_capacity(ht);
+
+        if (slot.key != NULL)
         {
-            free(n.key);
-            free(n.value);
+            upo_ht_linprob_destroy_slot(slot, destroy_data);
+            ht->size--;
         }
-        n.tombstone = 1;
-        ht->size--;
 
         if (upo_ht_linprob_load_factor(ht) <= 0.125)
             upo_ht_linprob_resize(ht, upo_ht_linprob_capacity(ht) / 2);
@@ -528,6 +547,11 @@ size_t upo_ht_linprob_capacity(const upo_ht_linprob_t ht)
 upo_ht_comparator_t upo_ht_linprob_get_comparator(const upo_ht_linprob_t ht)
 {
     return ht->key_cmp;
+}
+
+upo_ht_hasher_t upo_ht_linprob_get_hasher(const upo_ht_linprob_t ht)
+{
+    return ht->key_hash;
 }
 
 double upo_ht_linprob_load_factor(const upo_ht_linprob_t ht)
@@ -607,8 +631,7 @@ upo_ht_key_list_t upo_ht_sepchain_keys(const upo_ht_sepchain_t ht)
 
                 if (n == NULL)
                 {
-                    perror("malloc");
-                    abort();
+                    upo_throw_sys_error("Unable to allocate memory for the Separate Chaining list of keys");
                 }
 
                 n->key = node->key;
@@ -657,8 +680,7 @@ upo_ht_key_list_t upo_ht_linprob_keys(const upo_ht_linprob_t ht)
 
             if (node == NULL)
             {
-                perror("malloc");
-                abort();
+                upo_throw_sys_error("Unable to allocate memory for the Linear Probing list of keys");
             }
 
             node->key = h.key;

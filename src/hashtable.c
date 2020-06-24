@@ -22,9 +22,9 @@
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
+
 #include <upo/error.h>
 #include <upo/utility.h>
-
 #include "hashtable_private.h"
 
 
@@ -44,16 +44,14 @@ upo_ht_sepchain_t upo_ht_sepchain_create(size_t m, upo_ht_hasher_t key_hash, upo
     ht = malloc(sizeof(struct upo_ht_sepchain_s));
     if (ht == NULL)
     {
-        perror("Unable to allocate memory for Hash Table with Separate Chaining");
-        abort();
+        upo_throw_sys_error("Unable to allocate memory for Hash Table with Separate Chaining");
     }
 
     /* Allocate memory for the array of slots */
     ht->slots = malloc(m*sizeof(upo_ht_sepchain_slot_t));
     if (ht->slots == NULL)
     {
-        perror("Unable to allocate memory for slots of the Hash Table with Separate Chaining");
-        abort();
+        upo_throw_sys_error("Unable to allocate memory for slots of the Hash Table with Separate Chaining");
     }
 
     /* Initialize fields */
@@ -298,8 +296,7 @@ upo_ht_linprob_t upo_ht_linprob_create(size_t m, upo_ht_hasher_t key_hash, upo_h
     ht = malloc(sizeof(struct upo_ht_linprob_s));
     if (ht == NULL)
     {
-        perror("Unable to allocate memory for Hash Table with Linear Probing");
-        abort();
+        upo_throw_sys_error("Unable to allocate memory for Hash Table with Linear Probing");
     }
 
     /* Allocate memory for the array of slots */
@@ -308,8 +305,7 @@ upo_ht_linprob_t upo_ht_linprob_create(size_t m, upo_ht_hasher_t key_hash, upo_h
         ht->slots = malloc(m*sizeof(upo_ht_linprob_slot_t));
         if (ht->slots == NULL)
         {
-            perror("Unable to allocate memory for slots of the Hash Table with Separate Chaining");
-            abort();
+            upo_throw_sys_error("Unable to allocate memory for slots of the Hash Table with Separate Chaining");
         }
 
         /* Initialize the slots */
@@ -577,8 +573,7 @@ void upo_ht_linprob_resize(upo_ht_linprob_t ht, size_t n)
         new_ht = upo_ht_linprob_create(n, ht->key_hash, ht->key_cmp);
         if (new_ht == NULL)
         {
-            perror("Unable to allocate memory for slots of the Hash Table with Separate Chaining");
-            abort();
+            upo_throw_sys_error("Unable to allocate memory for slots of the Hash Table with Separate Chaining");
         }
 
         /* Put in the temporary hash table the key-value pairs stored in the

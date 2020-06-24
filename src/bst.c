@@ -333,14 +333,11 @@ upo_bst_node_t *upo_bst_min_impl(upo_bst_node_t *node)
     if (node == NULL)
         return NULL;
 
-    else
-    {
-        if (node->left != NULL)
+    else if (node->left != NULL)
             return upo_bst_min_impl(node->left);
 
-        else
-            return node;
-    }
+    else
+        return node;
 }
 
 void* upo_bst_max(upo_bst_t tree)
@@ -426,23 +423,34 @@ upo_bst_key_list_t upo_bst_keys_range(const upo_bst_t tree, const void *low_key,
 {
     if (tree != NULL)
     {
-        upo_bst_key_list_t full_list = upo_bst_keys(tree);
         upo_bst_key_list_t list = NULL;
 
-        upo_bst_comparator_t key_cmp = upo_bst_get_comparator(tree);
+        upo_bst_keys_range_impl(tree->root, low_key, high_key, upo_bst_get_comparator(tree), &list);
 
-        while (full_list != NULL) {
-
-            if (key_cmp(low_key, full_list->key) <= 0 && key_cmp(high_key, full_list->key) >= 0) {
-                list->key = full_list->key;
-                list = list->next;
-            }
-
-            full_list = full_list->next;
-        }
         return list;
     }
+
     return NULL;
+}
+
+void upo_bst_keys_range_impl(const upo_bst_node_t *node, const void *low_key, const void *high_key, upo_bst_comparator_t key_cmp, upo_bst_key_list_t *list)
+{
+    if (node != NULL)
+    {
+        upo_bst_keys_range_impl(node->left, low_key, high_key, key_cmp, list);
+
+        if (key_cmp(node->key, low_key) >= 0 && key_cmp(node->key, high_key) <= 0)
+        {
+            upo_bst_key_list_node_t *listNode = malloc(sizeof(struct upo_bst_key_list_node_s));
+
+            if (listNode == NULL) upo_throw_sys_error("Unable to allocate memory for a new node of the key list");
+
+            listNode->key = node->key;
+            *list = listNode;
+        }
+
+        upo_bst_keys_range_impl(node->right, low_key, high_key, key_cmp, list);
+    }
 }
 
 upo_bst_key_list_t upo_bst_keys(const upo_bst_t tree)
@@ -455,6 +463,7 @@ upo_bst_key_list_t upo_bst_keys(const upo_bst_t tree)
 
         return list;
     }
+
     return NULL;
 }
 
@@ -467,7 +476,7 @@ void upo_bst_keys_impl(const upo_bst_node_t *node, upo_bst_comparator_t key_cmp,
         upo_bst_key_list_node_t *lnode = malloc(sizeof(struct upo_bst_key_list_node_s));
 
         if (lnode == NULL)
-            upo_throw_sys_error("Unable to create a node of the key list");
+            upo_throw_sys_error("Unable to allocate memory for a new node of the key list");
 
         lnode->key = node->key;
         *list = lnode;
@@ -489,7 +498,7 @@ int upo_bst_is_bst_impl(upo_bst_node_t *node, const void *min_key, const void *m
     if (node == NULL)
         return 1;
 
-    if (key_cmp(node->key, max_key) < 0 || key_cmp(node->key, max_key) > 0)
+    if (key_cmp(node->key, min_key) < 0 || key_cmp(node->key, max_key) > 0)
         return 0;
 
     return upo_bst_is_bst_impl(node->left, min_key, node->key, key_cmp) && upo_bst_is_bst_impl(node->right, node->key, max_key, key_cmp);

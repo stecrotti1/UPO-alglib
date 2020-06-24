@@ -1,5 +1,3 @@
-/* vim: set tabstop=4 expandtab shiftwidth=4 softtabstop=4: */
-
 /*
  * Copyright 2015 University of Piemonte Orientale, Computer Science Institute
  *
@@ -851,11 +849,12 @@ void test_bst_property()
 
 int main()
 {
+    /*
     printf("Test case 'min/max'... ");
     fflush(stdout);
     test_min_max();
     printf("OK\n");
-
+    */
     printf("Test case 'delete min/max'... ");
     fflush(stdout);
     test_delete_min_max();

@@ -250,11 +250,14 @@ upo_bst_node_t *upo_bst_max_impl(upo_bst_node_t *node)
     if (node == NULL)
         return NULL;
 
-    else if (node->right != NULL)
-        return upo_bst_max_impl(node->right);
-
     else
-        return node;
+    {
+        if (node->right != NULL)
+            return upo_bst_max_impl(node->right);
+
+        else
+            return node;
+    }
 }
 
 size_t upo_bst_size(const upo_bst_t tree)
@@ -333,11 +336,14 @@ upo_bst_node_t *upo_bst_min_impl(upo_bst_node_t *node)
     if (node == NULL)
         return NULL;
 
-    else if (node->left != NULL)
-            return upo_bst_min_impl(node->left);
-
     else
-        return node;
+    {
+        if (node->left != NULL)
+            return upo_bst_min_impl(node->right);
+
+        else
+            return node;
+    }
 }
 
 void* upo_bst_max(upo_bst_t tree)

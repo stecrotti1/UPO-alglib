@@ -67,20 +67,6 @@ upo_ht_sepchain_t upo_ht_sepchain_create(size_t m, upo_ht_hasher_t key_hash, upo
     return ht;
 }
 
-upo_ht_sepchain_list_node_t *upo_ht_sepchain_create_node()
-{
-    upo_ht_sepchain_list_node_t *node = malloc(sizeof(struct upo_ht_sepchain_list_node_s));
-
-    if (node == NULL)
-        upo_throw_sys_error("Unable to allocate memory for a single node for Hast Table with Separate Chaining");
-
-    node->key = NULL;
-    node->value = NULL;
-    node->next = NULL;
-
-    return node;
-}
-
 void upo_ht_sepchain_destroy_node(upo_ht_sepchain_list_node_t *node, int destroy_data)
 {
     if (node != NULL)
@@ -183,7 +169,10 @@ void upo_ht_sepchain_insert(upo_ht_sepchain_t ht, void *key, void *value)
             node = node->next;
 
         if (node == NULL) {
-            node = upo_ht_sepchain_create_node();
+            node = malloc(sizeof(struct upo_ht_sepchain_list_node_s));
+
+            if (node == NULL)
+                upo_throw_sys_error("Unable to allocate memory for a single node for Hast Table with Separate Chaining");
 
             node->key = key;
             node->value = value;

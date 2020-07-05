@@ -327,19 +327,6 @@ void upo_ht_linprob_destroy(upo_ht_linprob_t ht, int destroy_data)
     }
 }
 
-void upo_ht_linprob_destroy_slot(upo_ht_linprob_slot_t slot, int destroy_data)
-{
-    if (destroy_data)
-    {
-        free(slot.key);
-        free(slot.value);
-    }
-
-    slot.key = NULL;
-    slot.value = NULL;
-    slot.tombstone = 1;
-}
-
 void upo_ht_linprob_clear(upo_ht_linprob_t ht, int destroy_data)
 {
     if (ht != NULL && ht->slots != NULL)
@@ -369,48 +356,44 @@ void* upo_ht_linprob_put(upo_ht_linprob_t ht, void *key, void *value)
 {
     void *old_value = NULL;
 
-    if (ht != NULL && ht->slots != NULL)
+    upo_ht_hasher_t key_hash = upo_ht_linprob_get_hasher(ht);
+
+    size_t h = key_hash(key, upo_ht_linprob_capacity(ht));
+    size_t tomb = 0;
+
+    upo_ht_comparator_t key_cmp = upo_ht_linprob_get_comparator(ht);
+
+    int found = 0;
+
+    if (upo_ht_linprob_load_factor(ht) >= 0.5)
+        upo_ht_linprob_resize(ht, upo_ht_linprob_capacity(ht) * 2);
+
+    while ((ht->slots[h].key != NULL && key_cmp(key, ht->slots[h].key) != 0) || ht->slots[h].tombstone != 0)
     {
-        if (upo_ht_linprob_load_factor(ht) >= 0.5)
-            upo_ht_linprob_resize(ht, upo_ht_linprob_capacity(ht) * 2);
-
-        upo_ht_hasher_t key_hash = upo_ht_linprob_get_hasher(ht);
-
-        size_t h = key_hash(key, upo_ht_linprob_capacity(ht));
-        size_t tomb = 0;
-
-        upo_ht_comparator_t key_cmp = upo_ht_linprob_get_comparator(ht);
-
-        upo_ht_linprob_slot_t slot = ht->slots[h];
-
-        int found = 0;
-
-        while ((slot.key != NULL && key_cmp(key, slot.key) != 0) || slot.tombstone)
+        if (ht->slots[h].tombstone != 0 && !found)
         {
-            if (slot.tombstone && !found)
-            {
-                found = 1;
-                tomb = h;
-            }
-
-            h = (h + 1) % upo_ht_linprob_capacity(ht);
+            found = 1;
+            tomb = h;
         }
 
-        if (slot.key == NULL)
-        {
-            if (found)
-                h = tomb;
+        h = (h + 1) % upo_ht_linprob_capacity(ht);
+    }
 
-            slot.key = key;
-            slot.value = value;
-            slot.tombstone = 0;
-        }
+    if (ht->slots[h].key == NULL)
+    {
+        if (found)
+            h = tomb;
 
-        else
-        {
-            old_value = slot.value;
-            slot.value = value;
-        }
+        ht->slots[h].key = key;
+        ht->slots[h].value = value;
+        ht->slots[h].tombstone = 0;
+        ht->size++;
+    }
+
+    else
+    {
+        old_value = ht->slots[h].value;
+        ht->slots[h].value = value;
     }
 
     return old_value;
@@ -420,22 +403,22 @@ void upo_ht_linprob_insert(upo_ht_linprob_t ht, void *key, void *value)
 {
     if (ht != NULL && ht->slots != NULL)
     {
-        if (upo_ht_linprob_load_factor(ht) >= 0.5)
-            upo_ht_linprob_resize(ht, upo_ht_linprob_capacity(ht) * 2);
-
         upo_ht_hasher_t key_hash = upo_ht_linprob_get_hasher(ht);
+
+        size_t h = key_hash(key, upo_ht_linprob_capacity(ht));;
+        size_t tomb = 0;
 
         upo_ht_comparator_t key_cmp = upo_ht_linprob_get_comparator(ht);
 
-        size_t h = key_hash(key, upo_ht_linprob_capacity(ht));
-        size_t tomb = 0;
-
-        upo_ht_linprob_slot_t slot = ht->slots[h];
-
         int found = 0;
 
-        while ((slot.key != NULL && key_cmp(key, slot.key) != 0) || slot.tombstone) {
-            if (slot.tombstone && !found) {
+        if (upo_ht_linprob_load_factor(ht) >= 0.5)
+            upo_ht_linprob_resize(ht, upo_ht_linprob_capacity(ht) * 2);
+
+        while ((ht->slots[h].key != NULL && key_cmp(key, ht->slots[h].key) != 0) || ht->slots[h].tombstone != 0)
+        {
+            if (ht->slots[h].tombstone != 0 && !found)
+            {
                 found = 1;
                 tomb = h;
             }
@@ -443,13 +426,15 @@ void upo_ht_linprob_insert(upo_ht_linprob_t ht, void *key, void *value)
             h = (h + 1) % upo_ht_linprob_capacity(ht);
         }
 
-        if (slot.key == NULL) {
+        if (ht->slots[h].key == NULL)
+        {
             if (found)
                 h = tomb;
 
-            slot.key = key;
-            slot.value = value;
-            slot.tombstone = 0;
+            ht->slots[h].key = key;
+            ht->slots[h].value = value;
+            ht->slots[h].tombstone = 0;
+            ht->size ++;
         }
     }
 }
@@ -462,55 +447,50 @@ void* upo_ht_linprob_get(const upo_ht_linprob_t ht, const void *key)
 
     size_t h = key_hash(key, upo_ht_linprob_capacity(ht));
 
-    upo_ht_linprob_slot_t slot = ht->slots[h];
-
-    while ((slot.key != NULL && key_cmp(key, slot.key) != 0) || slot.tombstone)
+    while ((ht->slots[h].key != NULL && key_cmp(key, ht->slots[h].key) != 0) || ht->slots[h].tombstone)
         h = (h + 1) % upo_ht_linprob_capacity(ht);
 
-    return (slot.key != NULL) ? slot.value : NULL;
+    return (ht->slots[h].key != NULL) ? ht->slots[h].value : NULL;
 }
 
 int upo_ht_linprob_contains(const upo_ht_linprob_t ht, const void *key)
 {
-    if (!upo_ht_linprob_is_empty(ht))
-    {
-        upo_ht_hasher_t key_hash = upo_ht_linprob_get_hasher(ht);
+    upo_ht_hasher_t key_hash = upo_ht_linprob_get_hasher(ht);
 
-        upo_ht_comparator_t key_cmp = upo_ht_linprob_get_comparator(ht);
+    upo_ht_comparator_t key_cmp = upo_ht_linprob_get_comparator(ht);
 
-        size_t h = key_hash(key, upo_ht_linprob_capacity(ht));
+    size_t h = key_hash(key, upo_ht_linprob_capacity(ht));
 
-        upo_ht_linprob_slot_t slot = ht->slots[h];
+    while ((ht->slots[h].key != NULL && key_cmp(key, ht->slots[h].key) != 0) || ht->slots[h].tombstone)
+        h = (h + 1) % upo_ht_linprob_capacity(ht);
 
-        while ((slot.key != NULL && key_cmp(key, slot.key) != 0) || slot.tombstone)
-            h = (h + 1) % upo_ht_linprob_capacity(ht);
-
-        return (slot.key != NULL) ? 1 : 0;
-    }
-
-    return 0;
+    return (ht->slots[h].key != NULL) ? 1 : 0;
 }
 
 void upo_ht_linprob_delete(upo_ht_linprob_t ht, const void *key, int destroy_data)
 {
-    if (ht != NULL && ht->slots != NULL)
+    upo_ht_hasher_t key_hash = upo_ht_linprob_get_hasher(ht);
+
+    upo_ht_comparator_t key_cmp = upo_ht_linprob_get_comparator(ht);
+
+    size_t h = key_hash(key, upo_ht_linprob_capacity(ht));
+
+    while ((ht->slots[h].key != NULL && key_cmp(key, ht->slots[h].key) != 0) || ht->slots[h].tombstone)
+        h = (h + 1) % upo_ht_linprob_capacity(ht);
+
+    if (ht->slots[h].key != NULL)
     {
-        upo_ht_hasher_t key_hash = upo_ht_linprob_get_hasher(ht);
-
-        upo_ht_comparator_t key_cmp = upo_ht_linprob_get_comparator(ht);
-
-        size_t h = key_hash(key, upo_ht_linprob_capacity(ht));
-
-        upo_ht_linprob_slot_t slot = ht->slots[h];
-
-        while ((slot.key != NULL && key_cmp(key, slot.key) != 0) || slot.tombstone)
-            h = (h + 1) % upo_ht_linprob_capacity(ht);
-
-        if (slot.key != NULL)
+        //upo_ht_linprob_destroy_slot(ht->slots[h], destroy_data);
+        if (destroy_data)
         {
-            upo_ht_linprob_destroy_slot(slot, destroy_data);
-            ht->size--;
+            free(ht->slots[h].key);
+            free(ht->slots[h].value);
         }
+
+        ht->slots[h].key = NULL;
+        ht->slots[h].value = NULL;
+        ht->slots[h].tombstone = 1;
+        ht->size--;
 
         if (upo_ht_linprob_load_factor(ht) <= 0.125)
             upo_ht_linprob_resize(ht, upo_ht_linprob_capacity(ht) / 2);

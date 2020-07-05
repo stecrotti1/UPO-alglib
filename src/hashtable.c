@@ -137,7 +137,10 @@ void* upo_ht_sepchain_put(upo_ht_sepchain_t ht, void *key, void *value)
             node = node->next;
 
         if (node == NULL) {
-            node = upo_ht_sepchain_create_node();
+            node = malloc(sizeof(struct upo_ht_sepchain_list_node_s));
+
+            if (node == NULL)
+                upo_throw_sys_error("Unable to allocate memory for a single node for Hast Table with Separate Chaining");
 
             node->key = key;
             node->value = value;

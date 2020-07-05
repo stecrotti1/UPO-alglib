@@ -17,9 +17,9 @@ You should have received a copy of the **GNU General Public License**
 along with UPOalglib.  If not, see <http://www.gnu.org/licenses/>.
 
 **Requirements:** 
-* CMake 3.10.x or later versions.
+* It is recommended to have a Linux x86 enviroment.
 * ISO C11
 * GNU GCC 6.3.1 or later, if you use WSL or Virtual Machine make sure to use a proper one.
-* A C debugger, like Valgrind 3.11
+* A C memory debugger, like Valgrind
 * GNU GDB 7.11 or later.
 * GNU Makefile 4.1 or later.

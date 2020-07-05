@@ -1,14 +1,17 @@
 docpath=./doc/api
 
 #CFLAGS+=-Wall -Wextra -ansi -pedantic -g -I"$(PWD)/include"
-CFLAGS+=-Wall -Wextra -std=c11 -pedantic -g -I"$(PWD)/include"
-#CFLAGS+=-DUPO_DEBUG
+CFLAGS+=-Wall -Wextra -Wpedantic -Wuninitialized -Wunused-value -std=c11 -pedantic -g -I"$(PWD)/include"
+CFLAGS+= -D_FORTIFY_SOURCE=2 -O -fasynchronous-unwind-tables -fexceptions -fPIE -fplugin=annobin -fstack-clash-protection
+CFLAGS+= -fstack-protector-strong -grecord-gcc-switches -fcf-protection -O2 -Werror=format-security
+CFLAGS+= -Werror=implicit-function-declaration
+CFLAGS+=-DUPO_DEBUG
 #CFLAGS+=-DUPO_BST_USE_RECURSIVE_PUT
 #CFLAGS+=-DUPO_BST_USE_RECURSIVE_GET
 #CFLAGS+=-DUPO_BST_DELETE_BY_MIN
 #CFLAGS+=-DUPO_BST_USE_RECURSIVE_TRAVERSAL
 #CFLAGS+=-DUPO_HASHTABLE_LINPROB_NEW_STYLE
-#LDLIBS+=-lrt
+LDLIBS+=-lrt
 #apps_targets=
 #bin_targets=
 #test_targets=

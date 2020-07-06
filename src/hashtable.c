@@ -67,20 +67,6 @@ upo_ht_sepchain_t upo_ht_sepchain_create(size_t m, upo_ht_hasher_t key_hash, upo
     return ht;
 }
 
-void upo_ht_sepchain_destroy_node(upo_ht_sepchain_list_node_t *node, int destroy_data)
-{
-    if (node != NULL)
-    {
-        free(node);
-
-        if (destroy_data != 0)
-        {
-            free(node->key);
-            free(node->value);
-        }
-    }
-}
-
 void upo_ht_sepchain_destroy(upo_ht_sepchain_t ht, int destroy_data)
 {
     if (ht != NULL)
@@ -127,34 +113,36 @@ void* upo_ht_sepchain_put(upo_ht_sepchain_t ht, void *key, void *value)
 {
     void *old_value = NULL;
 
-    if (ht != NULL && ht->slots != NULL) {
+    upo_ht_comparator_t key_cmp = upo_ht_sepchain_get_comparator(ht);
 
-        upo_ht_comparator_t key_cmp = upo_ht_sepchain_get_comparator(ht);
+    upo_ht_hasher_t key_hash = upo_ht_sepchain_get_hasher(ht);
 
-        upo_ht_sepchain_list_node_t *node = ht->slots->head;
+    size_t h = key_hash(key, upo_ht_sepchain_capacity(ht));
 
-        while (node != NULL && key_cmp(node->key, key) != 0)
-            node = node->next;
+    upo_ht_sepchain_list_node_t *node = ht->slots[h].head;
 
-        if (node == NULL) {
-            node = malloc(sizeof(struct upo_ht_sepchain_list_node_s));
+    while (node != NULL && key_cmp(node->key, key) != 0)
+        node = node->next;
 
-            if (node == NULL)
-                upo_throw_sys_error("Unable to allocate memory for a single node for Hast Table with Separate Chaining");
+    if (node == NULL)
+    {
+        node = malloc(sizeof(struct upo_ht_sepchain_list_node_s));
 
-            node->key = key;
-            node->value = value;
-            node->next = ht->slots->head;
+        if (node == NULL)
+            upo_throw_sys_error("Unable to allocate memory for a single node for Hast Table with Separate Chaining");
 
-            ht->slots->head = node;
-            ht->size++;
-        }
+        node->key = key;
+        node->value = value;
+        node->next = ht->slots[h].head;
 
-        else
-        {
-            old_value = node->value;
-            node->value = value;
-        }
+        ht->slots[h].head = node;
+        ht->size++;
+    }
+
+    else
+    {
+        old_value = node->value;
+        node->value = value;
     }
 
     return old_value;
@@ -166,12 +154,17 @@ void upo_ht_sepchain_insert(upo_ht_sepchain_t ht, void *key, void *value)
     {
         upo_ht_comparator_t key_cmp = upo_ht_sepchain_get_comparator(ht);
 
-        upo_ht_sepchain_list_node_t *node = ht->slots->head;
+        upo_ht_hasher_t key_hash = ht->key_hash;
+
+        size_t h = key_hash(key, upo_ht_sepchain_capacity(ht));
+
+        upo_ht_sepchain_list_node_t *node = ht->slots[h].head;
 
         while (node != NULL && key_cmp(key, node->key) != 0)
             node = node->next;
 
-        if (node == NULL) {
+        if (node == NULL)
+        {
             node = malloc(sizeof(struct upo_ht_sepchain_list_node_s));
 
             if (node == NULL)
@@ -179,9 +172,9 @@ void upo_ht_sepchain_insert(upo_ht_sepchain_t ht, void *key, void *value)
 
             node->key = key;
             node->value = value;
-            node->next = ht->slots->head;
+            node->next = ht->slots[h].head;
 
-            ht->slots->head = node;
+            ht->slots[h].head = node;
             ht->size++;
         }
     }
@@ -191,7 +184,11 @@ void* upo_ht_sepchain_get(const upo_ht_sepchain_t ht, const void *key)
 {
     upo_ht_comparator_t key_cmp = upo_ht_sepchain_get_comparator(ht);
 
-    upo_ht_sepchain_list_node_t *node = ht->slots->head;
+    upo_ht_hasher_t key_hash = upo_ht_sepchain_get_hasher(ht);
+
+    size_t h = key_hash(key, upo_ht_sepchain_capacity(ht));
+
+    upo_ht_sepchain_list_node_t *node = ht->slots[h].head;
 
     while (node != NULL && key_cmp(key, node->key) != 0)
         node = node->next;
@@ -203,7 +200,11 @@ int upo_ht_sepchain_contains(const upo_ht_sepchain_t ht, const void *key)
 {
     upo_ht_comparator_t key_cmp = upo_ht_sepchain_get_comparator(ht);
 
-    upo_ht_sepchain_list_node_t *node = ht->slots->head;
+    upo_ht_hasher_t key_hash = upo_ht_sepchain_get_hasher(ht);
+
+    size_t h = key_hash(key, upo_ht_sepchain_capacity(ht));
+
+    upo_ht_sepchain_list_node_t *node = ht->slots[h].head;
 
     while (node != NULL && key_cmp(node->key, key) != 0)
         node = node->next;
@@ -215,7 +216,11 @@ void upo_ht_sepchain_delete(upo_ht_sepchain_t ht, const void *key, int destroy_d
 {
     upo_ht_comparator_t key_cmp = upo_ht_sepchain_get_comparator(ht);
 
-    upo_ht_sepchain_list_node_t *node = ht->slots->head;
+    upo_ht_hasher_t key_hash = upo_ht_sepchain_get_hasher(ht);
+
+    size_t h = key_hash(key, upo_ht_sepchain_capacity(ht));
+
+    upo_ht_sepchain_list_node_t *node = ht->slots[h].head;
 
     upo_ht_sepchain_list_node_t *p = NULL;
 
@@ -228,7 +233,7 @@ void upo_ht_sepchain_delete(upo_ht_sepchain_t ht, const void *key, int destroy_d
     if (node != NULL)
     {
         if (p == NULL)
-            ht->slots->head = node->next;
+            ht->slots[h].head = node->next;
 
         else
             p->next = node->next;
@@ -236,6 +241,20 @@ void upo_ht_sepchain_delete(upo_ht_sepchain_t ht, const void *key, int destroy_d
 
     upo_ht_sepchain_destroy_node(node, destroy_data);
     ht->size--;
+}
+
+void upo_ht_sepchain_destroy_node(upo_ht_sepchain_list_node_t *node, int destroy_data)
+{
+    if (node != NULL)
+    {
+        free(node);
+
+        if (destroy_data != 0)
+        {
+            free(node->key);
+            free(node->value);
+        }
+    }
 }
 
 size_t upo_ht_sepchain_size(const upo_ht_sepchain_t ht)
@@ -582,34 +601,31 @@ void upo_ht_linprob_resize(upo_ht_linprob_t ht, size_t n)
 
 upo_ht_key_list_t upo_ht_sepchain_keys(const upo_ht_sepchain_t ht)
 {
-    upo_ht_key_list_t head = NULL;
+    upo_ht_key_list_t list = NULL;
 
-    size_t i = 0;
+    size_t i;
 
     if (!upo_ht_sepchain_is_empty(ht))
     {
-        for (i = 0; i < upo_ht_sepchain_size(ht); i++)
+        for (i = 0; i < upo_ht_sepchain_capacity(ht); i++)
         {
-            upo_ht_sepchain_list_node_t *node = ht->slots[i].head;
+            upo_ht_sepchain_list_node_t *node = NULL;
 
-            while (node != NULL)
+            for (node = ht->slots[i].head; node != NULL; node = node->next)
             {
-                upo_ht_key_list_node_t *n = (upo_ht_key_list_node_t *)malloc(sizeof(upo_ht_key_list_node_t));
+                upo_ht_key_list_node_t  *listNode = malloc(sizeof(struct upo_ht_key_list_node_s));
 
-                if (n == NULL)
-                {
-                    upo_throw_sys_error("Unable to allocate memory for the Separate Chaining list of keys");
-                }
+                if (listNode == NULL)
+                    upo_throw_sys_error("Unable to allocate memory for a new node of the key list");
 
-                n->key = node->key;
-                n->next = head;
-                head = n;
-                node = node->next;
+                listNode->key = node->key;
+                listNode->next = list;
+                list = listNode;
             }
         }
     }
 
-    return head;
+    return list;
 }
 
 void upo_ht_sepchain_traverse(const upo_ht_sepchain_t ht, upo_ht_visitor_t visit, void *visit_arg)
@@ -618,7 +634,7 @@ void upo_ht_sepchain_traverse(const upo_ht_sepchain_t ht, upo_ht_visitor_t visit
 
     if (!upo_ht_sepchain_is_empty(ht) && visit != NULL)
     {
-        for (i = 0; i < upo_ht_sepchain_size(ht); i++)
+        for (i = 0; i < upo_ht_sepchain_capacity(ht); i++)
         {
             upo_ht_sepchain_list_node_t *n = ht->slots[i].head;
 
@@ -633,31 +649,31 @@ void upo_ht_sepchain_traverse(const upo_ht_sepchain_t ht, upo_ht_visitor_t visit
 
 upo_ht_key_list_t upo_ht_linprob_keys(const upo_ht_linprob_t ht)
 {
-    upo_ht_key_list_t head = NULL;
+    upo_ht_key_list_t list = NULL;
 
     size_t i;
 
     if (!upo_ht_linprob_is_empty(ht))
     {
-        for (i = 0; i < upo_ht_linprob_size(ht); i++)
+        for (i = 0; i < upo_ht_linprob_capacity(ht); i++)
         {
-            upo_ht_linprob_slot_t h = ht->slots[i];
+            upo_ht_linprob_slot_t slot = ht->slots[i];
 
-            upo_ht_key_list_node_t *node = (upo_ht_key_list_node_t *)malloc(sizeof(upo_ht_key_list_node_t));
-
-            if (node == NULL)
+            while (slot.key != NULL || slot.tombstone)
             {
-                upo_throw_sys_error("Unable to allocate memory for the Linear Probing list of keys");
-            }
+                upo_ht_key_list_node_t *listNode = malloc(sizeof(struct upo_ht_key_list_node_s));
 
-            node->key = h.key;
-            node->next = head;
-            head = node;
-            node = node->next;
+                if (listNode == NULL)
+                    upo_throw_sys_error("Unable to allocate memory for a new node of the key list");
+
+                listNode->key = slot.key;
+                listNode->next = listNode;
+                list = listNode;
+            }
         }
     }
 
-    return head;
+    return list;
 }
 
 void upo_ht_linprob_traverse(const upo_ht_linprob_t ht, upo_ht_visitor_t visit, void *visit_arg)
@@ -666,11 +682,10 @@ void upo_ht_linprob_traverse(const upo_ht_linprob_t ht, upo_ht_visitor_t visit, 
 
     if (!upo_ht_linprob_is_empty(ht)  && visit != NULL)
     {
-        for (i = 0; i < upo_ht_linprob_size(ht); i++)
+        for (i = 0; i < upo_ht_linprob_capacity(ht); i++)
         {
-            upo_ht_linprob_slot_t node = ht->slots[i];
-
-            visit(node.key, node.value, visit_arg);
+            if (ht->slots[i].key != NULL)
+                visit(ht->slots[i].key, ht->slots[i].value, visit_arg);
         }
     }
 }

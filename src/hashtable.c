@@ -659,7 +659,7 @@ upo_ht_key_list_t upo_ht_linprob_keys(const upo_ht_linprob_t ht)
         {
             upo_ht_linprob_slot_t slot = ht->slots[i];
 
-            while (slot.key != NULL || slot.tombstone)
+            if (slot.key != NULL)
             {
                 upo_ht_key_list_node_t *listNode = malloc(sizeof(struct upo_ht_key_list_node_s));
 
@@ -667,7 +667,7 @@ upo_ht_key_list_t upo_ht_linprob_keys(const upo_ht_linprob_t ht)
                     upo_throw_sys_error("Unable to allocate memory for a new node of the key list");
 
                 listNode->key = slot.key;
-                listNode->next = listNode;
+                listNode->next = list;
                 list = listNode;
             }
         }

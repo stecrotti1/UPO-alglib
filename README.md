@@ -24,4 +24,3 @@ along with UPOalglib.  If not, see <http://www.gnu.org/licenses/>.
 * GNU GDB 7.11 or later.
 * GNU Makefile 4.1 or later.
 
-To simply download the source code without cloning it, hit [here](https://github.com/stecrotti1/UPOalglib/archive/v0.1-alpha.zip)

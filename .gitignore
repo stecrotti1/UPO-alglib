@@ -7,9 +7,12 @@
 /bin/libupoalglib_s.a
 /cmake-build-debug/
 /src/stack.o
+/src/hashtable.o
 /test/test_timer
 /test/test_sort
 CMakeLists.txt
+/test/test_hires_timer
+/test/test_stack
 /test/test_hashtable_linprob
 /test/test_hashtable_linprob_more
 /test/test_hashtable_sepchain

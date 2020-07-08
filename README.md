@@ -1,4 +1,4 @@
-UPO alglib
+UPOalglib
 ==========
 
 Collection of algorithms and abstract data types developed at the [Computer Science Institute](http://www.di.unipmn.it) of the [University of Piemonte Orientale](http://www.uniupo.it) for the *Algorithm 1 - Lab* course.
@@ -23,3 +23,4 @@ along with UPOalglib.  If not, see <http://www.gnu.org/licenses/>.
 * A C memory debugger, like Valgrind
 * GNU GDB 7.11 or later.
 * GNU Makefile 4.1 or later.
+

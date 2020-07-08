@@ -3,8 +3,6 @@
  *
  * \brief Private header for the Hash Tbale abstract data type.
  *
- * \author Stefano Crotti
- *
  * \copyright 2015 University of Piemonte Orientale, Computer Science Institute
  *
  *  This file is part of UPOalglib.
@@ -98,7 +96,14 @@ struct upo_ht_linprob_s
  */
 static void upo_ht_linprob_resize(upo_ht_linprob_t ht, size_t n);
 
-void upo_ht_sepchain_destroy_node(upo_ht_sepchain_list_node_t *, int);
+/**
+ * \brief Destroy the given node of Separate Chaining Hashtable
+ *
+ * \param upo_sepchain_list_node_t * Pointer to the node to be deleted
+ * \param int destroy_data Tells whether the previously allocated memory for data,
+ *  that is to be removed, must be freed (value `1`) or not (value `0`)
+ */
+void upo_ht_sepchain_destroy_node(upo_ht_sepchain_list_node_t *, int destroy_data);
 
 
 /*** END of HASH TABLE with LINEAR PROBING ***/

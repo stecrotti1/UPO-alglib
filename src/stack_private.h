@@ -9,8 +9,6 @@
  * `pop` operation removes elements from the front of the list.
  * The `top` operation returns the element stored in the front of the list.
  *
- * \author Stefano Crotti
- *
  * \copyright 2015 University of Piemonte Orientale, Computer Science Institute
  *
  *  This file is part of UPOalglib.

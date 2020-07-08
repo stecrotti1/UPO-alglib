@@ -117,14 +117,14 @@ void* upo_ht_sepchain_put(upo_ht_sepchain_t ht, void *key, void *value)
 
     upo_ht_hasher_t key_hash = upo_ht_sepchain_get_hasher(ht);
 
-    size_t h = key_hash(key, upo_ht_sepchain_capacity(ht));
+    size_t h = key_hash(key, upo_ht_sepchain_capacity(ht)); // Slot position
 
     upo_ht_sepchain_list_node_t *node = ht->slots[h].head;
 
-    while (node != NULL && key_cmp(node->key, key) != 0)
+    while (node != NULL && key_cmp(node->key, key) != 0) // Searches for a node with the same key
         node = node->next;
 
-    if (node == NULL)
+    if (node == NULL) // If node does not exist, create a new one
     {
         node = malloc(sizeof(struct upo_ht_sepchain_list_node_s));
 
@@ -139,7 +139,7 @@ void* upo_ht_sepchain_put(upo_ht_sepchain_t ht, void *key, void *value)
         ht->size++;
     }
 
-    else
+    else // If node exists, change the value and save the old one in old_value
     {
         old_value = node->value;
         node->value = value;
@@ -156,14 +156,14 @@ void upo_ht_sepchain_insert(upo_ht_sepchain_t ht, void *key, void *value)
 
         upo_ht_hasher_t key_hash = ht->key_hash;
 
-        size_t h = key_hash(key, upo_ht_sepchain_capacity(ht));
+        size_t h = key_hash(key, upo_ht_sepchain_capacity(ht)); // Slot position
 
         upo_ht_sepchain_list_node_t *node = ht->slots[h].head;
 
-        while (node != NULL && key_cmp(key, node->key) != 0)
+        while (node != NULL && key_cmp(key, node->key) != 0) // Searches for a node with the same key
             node = node->next;
 
-        if (node == NULL)
+        if (node == NULL) // Insert the node
         {
             node = malloc(sizeof(struct upo_ht_sepchain_list_node_s));
 
@@ -186,11 +186,11 @@ void* upo_ht_sepchain_get(const upo_ht_sepchain_t ht, const void *key)
 
     upo_ht_hasher_t key_hash = upo_ht_sepchain_get_hasher(ht);
 
-    size_t h = key_hash(key, upo_ht_sepchain_capacity(ht));
+    size_t h = key_hash(key, upo_ht_sepchain_capacity(ht)); // Slot position
 
     upo_ht_sepchain_list_node_t *node = ht->slots[h].head;
 
-    while (node != NULL && key_cmp(key, node->key) != 0)
+    while (node != NULL && key_cmp(key, node->key) != 0) // Searches for a node with the same key
         node = node->next;
 
     return (node != NULL) ? node->value : NULL;
@@ -202,11 +202,11 @@ int upo_ht_sepchain_contains(const upo_ht_sepchain_t ht, const void *key)
 
     upo_ht_hasher_t key_hash = upo_ht_sepchain_get_hasher(ht);
 
-    size_t h = key_hash(key, upo_ht_sepchain_capacity(ht));
+    size_t h = key_hash(key, upo_ht_sepchain_capacity(ht)); // Slot position
 
     upo_ht_sepchain_list_node_t *node = ht->slots[h].head;
 
-    while (node != NULL && key_cmp(node->key, key) != 0)
+    while (node != NULL && key_cmp(node->key, key) != 0) // Searches for a node with the same key
         node = node->next;
 
     return (node != NULL) ? 1 : 0;
@@ -218,21 +218,21 @@ void upo_ht_sepchain_delete(upo_ht_sepchain_t ht, const void *key, int destroy_d
 
     upo_ht_hasher_t key_hash = upo_ht_sepchain_get_hasher(ht);
 
-    size_t h = key_hash(key, upo_ht_sepchain_capacity(ht));
+    size_t h = key_hash(key, upo_ht_sepchain_capacity(ht)); // Slot position
 
     upo_ht_sepchain_list_node_t *node = ht->slots[h].head;
 
-    upo_ht_sepchain_list_node_t *p = NULL;
+    upo_ht_sepchain_list_node_t *p = NULL; // Aux pointer to the node
 
-    while (node != NULL && key_cmp(key, node->key) != 0)
+    while (node != NULL && key_cmp(key, node->key) != 0) // Searches for a node with the same key
     {
-        p = node;
+        p = node; // Saves node to p
         node = node->next;
     }
 
     if (node != NULL)
     {
-        if (p == NULL)
+        if (p == NULL) // If key wasn't found
             ht->slots[h].head = node->next;
 
         else
@@ -377,17 +377,17 @@ void* upo_ht_linprob_put(upo_ht_linprob_t ht, void *key, void *value)
 
     upo_ht_hasher_t key_hash = upo_ht_linprob_get_hasher(ht);
 
-    size_t h = key_hash(key, upo_ht_linprob_capacity(ht));
-    size_t tomb = 0;
+    size_t h = key_hash(key, upo_ht_linprob_capacity(ht)); // Slot position
+    size_t tomb = 0; // Tombstone slot position
 
     upo_ht_comparator_t key_cmp = upo_ht_linprob_get_comparator(ht);
 
-    int found = 0;
+    int found = 0; // Tombstone found
 
     if (upo_ht_linprob_load_factor(ht) >= 0.5)
         upo_ht_linprob_resize(ht, upo_ht_linprob_capacity(ht) * 2);
 
-    while ((ht->slots[h].key != NULL && key_cmp(key, ht->slots[h].key) != 0) || ht->slots[h].tombstone != 0)
+    while ((ht->slots[h].key != NULL && key_cmp(key, ht->slots[h].key) != 0) || ht->slots[h].tombstone != 0) // Finds empty slot or slot with the same key
     {
         if (ht->slots[h].tombstone != 0 && !found)
         {
@@ -398,7 +398,7 @@ void* upo_ht_linprob_put(upo_ht_linprob_t ht, void *key, void *value)
         h = (h + 1) % upo_ht_linprob_capacity(ht);
     }
 
-    if (ht->slots[h].key == NULL)
+    if (ht->slots[h].key == NULL) // If slot does not exist, create a new one
     {
         if (found)
             h = tomb;
@@ -409,7 +409,7 @@ void* upo_ht_linprob_put(upo_ht_linprob_t ht, void *key, void *value)
         ht->size++;
     }
 
-    else
+    else // Change the value and put the old one in old_value
     {
         old_value = ht->slots[h].value;
         ht->slots[h].value = value;
@@ -424,17 +424,17 @@ void upo_ht_linprob_insert(upo_ht_linprob_t ht, void *key, void *value)
     {
         upo_ht_hasher_t key_hash = upo_ht_linprob_get_hasher(ht);
 
-        size_t h = key_hash(key, upo_ht_linprob_capacity(ht));;
-        size_t tomb = 0;
+        size_t h = key_hash(key, upo_ht_linprob_capacity(ht)); // Slot position
+        size_t tomb = 0; // Tombstone slot position
 
         upo_ht_comparator_t key_cmp = upo_ht_linprob_get_comparator(ht);
 
-        int found = 0;
+        int found = 0; // Tombstone found
 
         if (upo_ht_linprob_load_factor(ht) >= 0.5)
             upo_ht_linprob_resize(ht, upo_ht_linprob_capacity(ht) * 2);
 
-        while ((ht->slots[h].key != NULL && key_cmp(key, ht->slots[h].key) != 0) || ht->slots[h].tombstone != 0)
+        while ((ht->slots[h].key != NULL && key_cmp(key, ht->slots[h].key) != 0) || ht->slots[h].tombstone != 0) // Finds empty slot
         {
             if (ht->slots[h].tombstone != 0 && !found)
             {
@@ -445,7 +445,7 @@ void upo_ht_linprob_insert(upo_ht_linprob_t ht, void *key, void *value)
             h = (h + 1) % upo_ht_linprob_capacity(ht);
         }
 
-        if (ht->slots[h].key == NULL)
+        if (ht->slots[h].key == NULL) // Create the new slot
         {
             if (found)
                 h = tomb;
@@ -464,9 +464,9 @@ void* upo_ht_linprob_get(const upo_ht_linprob_t ht, const void *key)
 
     upo_ht_comparator_t key_cmp = upo_ht_linprob_get_comparator(ht);
 
-    size_t h = key_hash(key, upo_ht_linprob_capacity(ht));
+    size_t h = key_hash(key, upo_ht_linprob_capacity(ht)); // Slot position
 
-    while ((ht->slots[h].key != NULL && key_cmp(key, ht->slots[h].key) != 0) || ht->slots[h].tombstone)
+    while ((ht->slots[h].key != NULL && key_cmp(key, ht->slots[h].key) != 0) || ht->slots[h].tombstone) // Finds slot with the same key
         h = (h + 1) % upo_ht_linprob_capacity(ht);
 
     return (ht->slots[h].key != NULL) ? ht->slots[h].value : NULL;
@@ -478,9 +478,9 @@ int upo_ht_linprob_contains(const upo_ht_linprob_t ht, const void *key)
 
     upo_ht_comparator_t key_cmp = upo_ht_linprob_get_comparator(ht);
 
-    size_t h = key_hash(key, upo_ht_linprob_capacity(ht));
+    size_t h = key_hash(key, upo_ht_linprob_capacity(ht)); // Slot position
 
-    while ((ht->slots[h].key != NULL && key_cmp(key, ht->slots[h].key) != 0) || ht->slots[h].tombstone)
+    while ((ht->slots[h].key != NULL && key_cmp(key, ht->slots[h].key) != 0) || ht->slots[h].tombstone) // Finds slot with the same key
         h = (h + 1) % upo_ht_linprob_capacity(ht);
 
     return (ht->slots[h].key != NULL) ? 1 : 0;
@@ -494,12 +494,11 @@ void upo_ht_linprob_delete(upo_ht_linprob_t ht, const void *key, int destroy_dat
 
     size_t h = key_hash(key, upo_ht_linprob_capacity(ht));
 
-    while ((ht->slots[h].key != NULL && key_cmp(key, ht->slots[h].key) != 0) || ht->slots[h].tombstone)
+    while ((ht->slots[h].key != NULL && key_cmp(key, ht->slots[h].key) != 0) || ht->slots[h].tombstone) // Finds slot with the same key
         h = (h + 1) % upo_ht_linprob_capacity(ht);
 
     if (ht->slots[h].key != NULL)
     {
-        //upo_ht_linprob_destroy_slot(ht->slots[h], destroy_data);
         if (destroy_data)
         {
             free(ht->slots[h].key);

@@ -49,14 +49,14 @@ void upo_stack_push(upo_stack_t stack, void *data)
 {
     if (stack != NULL)
     {
-        upo_stack_node_t *node = malloc(sizeof(upo_stack_node_t));
+        upo_stack_node_t *node = malloc(sizeof(upo_stack_node_t)); // Create a new stack slot
 
         if (node == NULL)
             upo_throw_sys_error("Unable to create a stack node.\n");
 
         node->data = data;
         node->next = stack->top;
-        stack->top = node;
+        stack->top = node; // Push at the top
         stack->size++;
     }
 }

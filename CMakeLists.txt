@@ -22,6 +22,8 @@ add_executable(alg_workspace
         src/hires_timer_private.h
         src/io.c
         src/random.c
+        src/bst.c
+        src/bst_private.h
         src/timer.c
         src/timer_private.h
         src/utility.c

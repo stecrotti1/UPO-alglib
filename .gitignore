@@ -20,4 +20,5 @@ CMakeLists.txt
 /src/sort.o
 /test/test_bst
 /test/test_bst_more
-
+/apps/use_timer
+.idea

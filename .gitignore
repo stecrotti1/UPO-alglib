@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /src/timer.o
 /src/utility.o
 /src/random.o
@@ -18,19 +17,7 @@ CMakeLists.txt
 /test/test_hashtable_linprob_more
 /test/test_hashtable_sepchain
 /test/test_hashtable_sepchain_more
-=======
-/bin/libupoalglib_s.a
-/cmake-build-debug/
-/src/bst.o
-/src/hires_timer.o
-/src/io.o
-/src/random.o
 /src/sort.o
-/src/stack.o
-/src/timer.o
-/src/utility.o
-/test/test_hires_timer
 /test/test_bst
 /test/test_bst_more
-/test/test_timer
->>>>>>> origin/bst
+

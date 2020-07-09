@@ -32,6 +32,8 @@ add_executable(alg_workspace
         test/test_hires_timer.c
         test/test_timer.c
         test/test_stack.c
+        test/test_bst.c
+        test/test_bst_more.c
         test/test_hashtable_linprob.c
         test/test_hashtable_linprob_more.c
         test/test_hashtable_sepchain.c

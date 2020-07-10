@@ -247,13 +247,13 @@ void upo_ht_sepchain_destroy_node(upo_ht_sepchain_list_node_t *node, int destroy
 {
     if (node != NULL)
     {
-        free(node);
-
         if (destroy_data != 0)
         {
             free(node->key);
             free(node->value);
         }
+
+        free(node);
     }
 }
 

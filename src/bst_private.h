@@ -1,5 +1,3 @@
-/* vim: set tabstop=4 expandtab shiftwidth=4 softtabstop=4: */
-
 /**
  * \file bst_private.h
  *
@@ -28,9 +26,7 @@
 #ifndef UPO_BST_PRIVATE_H
 #define UPO_BST_PRIVATE_H
 
-
 #include <upo/bst.h>
-
 
 /** \brief Alias for binary search tree node type. */
 typedef struct upo_bst_node_s upo_bst_node_t;
@@ -95,6 +91,7 @@ void *upo_bst_floor_impl(upo_bst_node_t *, const void *, upo_bst_comparator_t);
 void *upo_bst_ceiling_impl(upo_bst_node_t *, const void *, upo_bst_comparator_t);
 
 void upo_bst_keys_impl(const upo_bst_node_t *, upo_bst_comparator_t, upo_bst_key_list_t *);
+
 upo_bst_key_list_t upo_bst_keys_range_impl(upo_bst_key_list_t , const void *, const void *, upo_bst_comparator_t);
 
 int upo_bst_is_bst_impl(upo_bst_node_t *, const void *, const void *, upo_bst_comparator_t);

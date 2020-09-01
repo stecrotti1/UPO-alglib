@@ -158,11 +158,7 @@ void* upo_bst_get(const upo_bst_t tree, const void *key)
 {
     upo_bst_node_t* node = upo_bst_get_impl(tree->root, key, upo_bst_get_comparator(tree));
 
-    if (node != NULL)
-        return node->value;
-
-    else
-        return NULL;
+    return (node == NULL) ? NULL : node->value;
 }
 
 upo_bst_node_t *upo_bst_get_impl(upo_bst_node_t* node, const void* key, upo_bst_comparator_t key_cmp)
@@ -182,10 +178,7 @@ upo_bst_node_t *upo_bst_get_impl(upo_bst_node_t* node, const void* key, upo_bst_
 
 int upo_bst_contains(const upo_bst_t tree, const void *key)
 {
-   if (upo_bst_get_impl(tree->root, key, upo_bst_get_comparator(tree)) != NULL)
-       return 1;
-   else
-       return 0;
+   return (upo_bst_get_impl(tree->root, key, upo_bst_get_comparator(tree)) != NULL) ? 1 : 0;
 }
 
 void upo_bst_delete(const upo_bst_t tree, const void *key, int destroy_data)

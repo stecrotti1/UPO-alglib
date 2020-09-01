@@ -198,6 +198,8 @@ void* upo_ht_sepchain_get(const upo_ht_sepchain_t ht, const void *key)
 
 int upo_ht_sepchain_contains(const upo_ht_sepchain_t ht, const void *key)
 {
+    /*  ALternative #1: same as upo_ht_sepchain_get()
+     *
     upo_ht_comparator_t key_cmp = upo_ht_sepchain_get_comparator(ht);
 
     upo_ht_hasher_t key_hash = upo_ht_sepchain_get_hasher(ht);
@@ -210,6 +212,13 @@ int upo_ht_sepchain_contains(const upo_ht_sepchain_t ht, const void *key)
         node = node->next;
 
     return (node != NULL) ? 1 : 0;
+     */
+
+    // Or alternative #2:
+
+    void *value = upo_ht_sepchain_get(ht, key);
+
+    return (value == NULL) ? 0 : 1;
 }
 
 void upo_ht_sepchain_delete(upo_ht_sepchain_t ht, const void *key, int destroy_data)
@@ -474,6 +483,7 @@ void* upo_ht_linprob_get(const upo_ht_linprob_t ht, const void *key)
 
 int upo_ht_linprob_contains(const upo_ht_linprob_t ht, const void *key)
 {
+    /* Alternative #1: same as upo_ht_linprob_get()
     upo_ht_hasher_t key_hash = upo_ht_linprob_get_hasher(ht);
 
     upo_ht_comparator_t key_cmp = upo_ht_linprob_get_comparator(ht);
@@ -484,6 +494,13 @@ int upo_ht_linprob_contains(const upo_ht_linprob_t ht, const void *key)
         h = (h + 1) % upo_ht_linprob_capacity(ht);
 
     return (ht->slots[h].key != NULL) ? 1 : 0;
+     */
+
+    // Or alternative #2:
+
+    void *value = upo_ht_linprob_get(ht, key);
+
+    return (value == NULL) ? 0 : 1;
 }
 
 void upo_ht_linprob_delete(upo_ht_linprob_t ht, const void *key, int destroy_data)

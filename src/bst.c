@@ -165,7 +165,7 @@ void* upo_bst_get(const upo_bst_t tree, const void *key)
         return NULL;
 }
 
-void *upo_bst_get_impl(upo_bst_node_t* node, const void* key, upo_bst_comparator_t key_cmp)
+upo_bst_node_t *upo_bst_get_impl(upo_bst_node_t* node, const void* key, upo_bst_comparator_t key_cmp)
 {
     if (node == NULL)
         return NULL;

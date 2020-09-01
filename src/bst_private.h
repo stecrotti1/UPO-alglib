@@ -60,7 +60,7 @@ struct upo_bst_s
  */
 static void upo_bst_clear_impl(upo_bst_node_t*, int destroy_data);
 
-void *upo_bst_get_impl(upo_bst_node_t *, const void *, upo_bst_comparator_t);
+upo_bst_node_t *upo_bst_get_impl(upo_bst_node_t *, const void *, upo_bst_comparator_t);
 
 upo_bst_node_t *upo_bst_put_impl(upo_bst_node_t *, void *, void *, void *, upo_bst_comparator_t);
 
@@ -78,9 +78,9 @@ size_t upo_bst_size_impl(upo_bst_node_t *);
 
 size_t upo_bst_height_impl(upo_bst_node_t *);
 
-int upo_bst_is_leaf_impl(upo_bst_node_t *);
-
 size_t upo_bst_height_max(size_t, size_t);
+
+int upo_bst_is_leaf_impl(upo_bst_node_t *);
 
 void upo_bst_traverse_in_order_impl(upo_bst_node_t *, upo_bst_visitor_t, void *);
 

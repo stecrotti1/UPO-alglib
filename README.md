@@ -17,10 +17,14 @@ You should have received a copy of the **GNU General Public License**
 along with UPOalglib.  If not, see <http://www.gnu.org/licenses/>.
 
 **Requirements:** 
-* It is recommended to have a Linux enviroment.
-* ISO C11
-* GNU GCC 6.3.1 or later, if you use WSL or Virtual Machine make sure to use a proper one.
-* A C memory debugger, like Valgrind
-* GNU GDB 7.11 or later.
-* GNU Makefile 4.1 or later.
+* it is recommended to have a Linux enviroment (but a WLS should work);
+* an ISO C11 compatible enviroment;
+* GNU GCC 6.3.1 or later, if you use WSL or Virtual Machine make sure to use a proper one;
+* a C memory debugger, like Valgrind;
+* GNU GDB 7.11 or later;
+* GNU Makefile 4.1 or later;
 
+**Compiling:**
+* in order to compile the API: _**make clean bin**_;
+* in order to compile the tests: _**make clean test**_;
+* in order to test the implementations: _**./test/test_name_of_the_executable_in_test_directory**_;

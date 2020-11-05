@@ -17,7 +17,7 @@ You should have received a copy of the **GNU General Public License**
 along with UPOalglib.  If not, see <http://www.gnu.org/licenses/>.
 
 **Requirements:** 
-* it is recommended to have a Linux enviroment (but a WLS should work);
+* it is strongly recommended to have a Linux enviroment;
 * an ISO C11 compatible enviroment;
 * GNU GCC 6.3.1 or later, if you use WSL or Virtual Machine make sure to use a proper one;
 * a C memory debugger, like Valgrind;

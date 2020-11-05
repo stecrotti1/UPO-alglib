@@ -19,7 +19,7 @@ along with UPOalglib.  If not, see <http://www.gnu.org/licenses/>.
 **Requirements:** 
 * it is **strongly** recommended to have a Linux enviroment;
 * an ISO C11 compatible enviroment;
-* GNU GCC 6.3.1 or later, if you use WSL or Virtual Machine make sure to use a proper one;
+* GNU GCC 6.3.1 or later;
 * a C memory debugger, like Valgrind;
 * GNU GDB 7.11 or later;
 * GNU Makefile 4.1 or later;

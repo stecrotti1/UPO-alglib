@@ -17,7 +17,7 @@ You should have received a copy of the **GNU General Public License**
 along with UPOalglib.  If not, see <http://www.gnu.org/licenses/>.
 
 **Requirements:** 
-* it is **strongly** recommended to have a Linux Fedora enviroment due to a ``relocation R_X86_64_32 against `.rodata'`` error caused on other distributions;
+* it is **strongly** recommended to have a Linux Fedora enviroment due to a ``relocation R_X86_64_32 against `.rodata'`` compilation error caused on other distributions;
 * an ISO C11 compatible enviroment;
 * GNU GCC 6.3.1 or later;
 * a C memory debugger, like Valgrind;

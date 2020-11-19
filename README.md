@@ -17,7 +17,10 @@ You should have received a copy of the **GNU General Public License**
 along with UPOalglib.  If not, see <http://www.gnu.org/licenses/>.
 
 **Requirements:** 
-* it is **strongly** recommended to have a Linux Fedora enviroment due to a ``relocation R_X86_64_32 against `.rodata'`` compilation error caused on other distributions;
+* it is **strongly** suggested to have a Linux Fedora enviroment due to a ``relocation R_X86_64_32 against `.rodata'`` 
+  compilation error caused on other distributions;
+* it is highly recommended to install the gcc **annobin** plugin in order to make this API work properly;
+* due to unexpected lack of libraries on your system, it is strongly recommended to install `build-essential` package;
 * an ISO C11 compatible enviroment;
 * GNU GCC 6.3.1 or later;
 * a C memory debugger, like Valgrind;

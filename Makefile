@@ -2,7 +2,7 @@ docpath=./doc/api
 
 #CFLAGS+=-Wall -Wextra -ansi -pedantic -g -I"$(PWD)/include"
 CFLAGS+=-Wall -Wextra -Wpedantic -Wuninitialized -Wunused-value -std=c11 -pedantic -g -I"$(PWD)/include"
-CFLAGS+= -D_FORTIFY_SOURCE=2 -O -fasynchronous-unwind-tables -fexceptions -fPIE -fplugin=annobin -fstack-clash-protection
+CFLAGS+= -D_FORTIFY_SOURCE=2 -O -fasynchronous-unwind-tables -fexceptions -fPIE -fstack-clash-protection
 CFLAGS+= -fstack-protector-strong -grecord-gcc-switches -fcf-protection -O2 -Werror=format-security
 CFLAGS+= -Werror=implicit-function-declaration
 CFLAGS+=-DUPO_DEBUG

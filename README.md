@@ -1,3 +1,4 @@
+[![C/C++ CI](https://github.com/stecrotti1/UPOalglib/actions/workflows/c-cpp.yml/badge.svg?branch=master)](https://github.com/stecrotti1/UPOalglib/actions/workflows/c-cpp.yml)
 UPOalglib
 ==========
 
